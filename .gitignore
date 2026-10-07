@@ -1,0 +1,24 @@
+# Visual Studio / SSIS / SSAS
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.dtsx.bak
+*.database
+*.dtproj.user
+*.dwproj.user
+
+# SQL Server
+*.ldf
+*.mdf
+
+# Power BI
+*.pbix.tmp
+.pbi/
+
+# SO / editores
+Thumbs.db
+.DS_Store
+*.tmp
+~$*
