@@ -114,8 +114,10 @@ modelo:
   trimestre, no por año.
 
 ## Proceso ETL - Fase 1
-El flujo de control primero borra el destino (el hecho antes que las
-dimensiones, por las foráneas) y después carga en este orden:
+El flujo de control primero borra el destino con
+`database/scripts/02_limpiar_dw.sql` (el hecho antes que las dimensiones,
+por las foráneas, y reinicia los IDENTITY para que las claves sustitutas
+partan en 1 en cada carga) y después carga en este orden:
 `Dim_Transportista → Dim_Cliente → Dim_Producto → Dim_Empleado →
 Dim_Tiempo → Fact_Detalle_Venta`.
 
@@ -140,7 +142,9 @@ claves sustitutas) dio los números que esperábamos: 830 órdenes, 51.317
 unidades, 1.354.458,59 de bruto, 88.665,83 de descuento, 1.265.793,29 de
 neto, 91 clientes, 77 productos, 9 empleados y 3 transportistas. Con el
 calendario continuo, `Dim_Tiempo` pasa a tener 1.096 fechas. Hay que
-repetir esta validación con la carga de SSIS.
+repetir esta validación con la carga de SSIS, con
+`database/scripts/03_validar_carga.sql` (19 controles: conteos, totales,
+NULL de despacho, montos y limpieza; todos deben dar OK).
 Falta armar los paquetes `.dtsx` en SSIS que hagan esta misma carga (eso
 va en Visual Studio, en Windows): un paquete por tabla más uno maestro
 que los ejecuta en orden.
