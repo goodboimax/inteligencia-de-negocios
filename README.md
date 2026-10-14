@@ -4,9 +4,9 @@
 Caso 3: Kent Foods (empresa de venta de alimentos con envío a domicilio).
 
 ## Integrantes y sección
-- _Nombre Apellido_ (@usuario-github)
-- _Nombre Apellido_ (@usuario-github)
-- _Nombre Apellido_ (@usuario-github)
+- _Nombre Apellido_ (@goodboimax)
+
+Trabajo individual, autorizado por el profesor.
 
 Asignatura: Inteligencia de Negocios - UTFSM. Sección: _por completar_. Profesor(a): _por completar_.
 
@@ -58,20 +58,35 @@ copo de nieve.
 
 Los 4 pasos de Kimball, aplicados a este caso:
 
-1. **Proceso de negocio:** las ventas de alimentos con envío (órdenes)
-   de Kent Foods.
-2. **Granularidad:** un registro por cada producto vendido dentro de una
-   orden, o sea una fila de `DetalleOrden` en la base original. Es el
-   detalle más fino que se puede sacar.
-3. **Dimensiones:** Tiempo (¿cuándo?, se usa dos veces: FechaOrden y
-   FechaEnvio), Cliente (¿quién compra?), Producto (¿qué?, con categoría
-   y proveedor adentro), Empleado (¿quién vende?, con región adentro) y
-   Transportista (¿quién despacha?).
-4. **Medidas:** Cantidad, PrecioUnitario, MontoBruto, MontoDescuento,
-   MontoNeto (ya calculado como bruto menos descuento) y DiasDespacho.
+### Proceso de negocio
+Las ventas de alimentos con envío (órdenes) de Kent Foods.
 
+### Granularidad
+Un registro por cada producto vendido dentro de una orden, o sea una
+fila de `DetalleOrden` en la base original. Es el detalle más fino que
+se puede sacar.
+
+### Dimensiones
+Tiempo (¿cuándo?, se usa dos veces: FechaOrden y FechaEnvio), Cliente
+(¿quién compra?), Producto (¿qué?, con categoría y proveedor adentro),
+Empleado (¿quién vende?, con región adentro) y Transportista (¿quién
+despacha?).
+
+Cada dimensión tiene una **clave sustituta** (`ClienteKey`,
+`ProductoKey`, etc., `INT IDENTITY`) generada por el DW, y guarda el ID
+de la base original como clave de negocio (`ClienteID`, `ProductoID`,
+etc.). `Dim_Tiempo` usa como clave la fecha en entero `AAAAMMDD` y es un
+calendario continuo (2016–2018, todos los días aunque no haya ventas),
+con columnas `AnioMes` y `AnioTrimestre` para que la jerarquía funcione
+en el cubo.
+
+### Tabla de hechos y medidas
 La tabla de hechos es `Fact_Detalle_Venta`, con clave primaria
-`OrdenID + ProductoID` y una foránea a cada dimensión. Las medidas se
+`OrdenID + ProductoKey` (`OrdenID` queda como dimensión degenerada) y
+una foránea a la clave sustituta de cada dimensión.
+
+Medidas: Cantidad, PrecioUnitario, MontoBruto, MontoDescuento,
+MontoNeto (ya calculado como bruto menos descuento) y DiasDespacho. Se
 calculan siempre con el precio que quedó guardado en `DetalleOrden`, no
 con el de `Productos` (que es el precio actual del catálogo), porque en
 658 de las 2.155 líneas son distintos.
@@ -86,7 +101,7 @@ modelo:
   (0.15000001 en vez de 0.15), así que en el ETL se convierte a
   `DECIMAL(4,2)`.
 - 21 órdenes (73 líneas del hecho) todavía no se despachan, entonces
-  `FechaEnvio` y `DiasDespacho` quedan en NULL para esas.
+  `FechaEnvioKey` y `DiasDespacho` quedan en NULL para esas.
 - Un empleado puede tener varios territorios, pero siempre de la misma
   región, así que a `Dim_Empleado` le pusimos `Region` directamente y
   dejamos los territorios fuera.
@@ -111,21 +126,24 @@ Dim_Tiempo → Fact_Detalle_Venta`.
 - **Dim_Empleado** sale de `Empleados` unido a su región (a través de
   `Territorios` → `Regiones`, con DISTINCT y RTRIM), y se arma
   `NombreEmpleado` juntando nombre y apellido.
-- **Dim_Tiempo** sale de las fechas distintas que aparecen en
-  `FechaOrden` y `FechaEnvio`, calculando día, mes, trimestre, año y
-  nombre del mes.
+- **Dim_Tiempo** se llena ejecutando `dbo.usp_CargarDimTiempo` (una
+  tarea *Execute SQL*) con el rango 01-01-2016 a 31-12-2018, que cubre
+  todas las fechas de orden y de envío.
 - **Fact_Detalle_Venta** sale de `DetalleOrden` unido a `Ordenes`,
   calculando los montos, `DiasDespacho` y convirtiendo el descuento a
-  `DECIMAL`.
+  `DECIMAL`. Después pasa por un *Lookup* contra cada dimensión para
+  cambiar los ID del origen por las claves sustitutas (`ClienteID` →
+  `ClienteKey`, etc.; las fechas → `FechaKey`).
 
-El esquema de `database/scripts/01_crear_modelo.sql` ya lo probamos en
-un SQL Server 2022 local y una carga de prueba contra ese esquema dio
-los números que esperábamos: 830 órdenes, 51.317 unidades, 1.354.458,59
-de bruto, 88.665,83 de descuento, 1.265.793,29 de neto, 91 clientes, 77
-productos, 9 empleados, 3 transportistas y 480 fechas en `Dim_Tiempo`.
+Una carga de prueba contra la versión anterior del esquema (antes de las
+claves sustitutas) dio los números que esperábamos: 830 órdenes, 51.317
+unidades, 1.354.458,59 de bruto, 88.665,83 de descuento, 1.265.793,29 de
+neto, 91 clientes, 77 productos, 9 empleados y 3 transportistas. Con el
+calendario continuo, `Dim_Tiempo` pasa a tener 1.096 fechas. Hay que
+repetir esta validación con la carga de SSIS.
 Falta armar los paquetes `.dtsx` en SSIS que hagan esta misma carga (eso
-va en Visual Studio, en Windows): un paquete por tabla más uno maestro,
-para no pisarnos al trabajar en equipo en Git.
+va en Visual Studio, en Windows): un paquete por tabla más uno maestro
+que los ejecuta en orden.
 
 ## Cubo OLAP - Fase 2
 _Pendiente (Fase 2)._
