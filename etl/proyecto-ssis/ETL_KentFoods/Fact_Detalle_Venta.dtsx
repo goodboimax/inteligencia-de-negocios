@@ -1,0 +1,1650 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/15/2026 4:22:55 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-MMA8RHC"
+  DTS:CreatorName="DESKTOP-MMA8RHC\Usuario"
+  DTS:DTSID="{2FC607BF-D58D-4733-917D-D156E7C97083}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.521.0"
+  DTS:LocaleID="13322"
+  DTS:ObjectName="Fact_Detalle_Venta"
+  DTS:PackageType="5"
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{0C4E079D-DA13-433C-A1E4-061864489BC3}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT Cargar Fact_Detalle_Venta"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{F78DE147-4374-46DD-AB01-65FCFC3C2194}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT Cargar Fact_Detalle_Venta"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Destino de OLE DB"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[Fact_Detalle_Venta]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{3E550BEC-B1C8-4CF0-9FAB-F8739673DAD6}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Destino_KentFoodsDW]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[OrdenID]"
+                      cachedDataType="i4"
+                      cachedName="OrdenID"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[OrdenID]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[OrdenID]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[FechaOrdenKey]"
+                      cachedDataType="i4"
+                      cachedName="FechaOrdenKey"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaOrdenKey]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[FechaOrdenKey]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[FechaEnvioKey]"
+                      cachedDataType="i4"
+                      cachedName="FechaEnvioKey"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaEnvioKey]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[FechaEnvioKey]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Cantidad]"
+                      cachedDataType="i4"
+                      cachedName="Cantidad"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Cantidad]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Cantidad]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[PrecioUnitario]"
+                      cachedDataType="numeric"
+                      cachedName="PrecioUnitario"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[PrecioUnitario]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[PrecioUnitario]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Descuento]"
+                      cachedDataType="numeric"
+                      cachedName="Descuento"
+                      cachedPrecision="4"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Descuento]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Descuento]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[MontoBruto]"
+                      cachedDataType="numeric"
+                      cachedName="MontoBruto"
+                      cachedPrecision="12"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoBruto]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[MontoBruto]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[MontoDescuento]"
+                      cachedDataType="numeric"
+                      cachedName="MontoDescuento"
+                      cachedPrecision="12"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoDescuento]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[MontoDescuento]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[MontoNeto]"
+                      cachedDataType="numeric"
+                      cachedName="MontoNeto"
+                      cachedPrecision="13"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoNeto]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[MontoNeto]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[DiasDespacho]"
+                      cachedDataType="i4"
+                      cachedName="DiasDespacho"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[DiasDespacho]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[DiasDespacho]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[ClienteKey]"
+                      cachedDataType="i4"
+                      cachedName="ClienteKey"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[ClienteKey]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Outputs[Salida de entradas coincidentes de búsqueda].Columns[ClienteKey]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[ProductoKey]"
+                      cachedDataType="i4"
+                      cachedName="ProductoKey"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[ProductoKey]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Outputs[Salida de entradas coincidentes de búsqueda].Columns[ProductoKey]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[EmpleadoKey]"
+                      cachedDataType="i4"
+                      cachedName="EmpleadoKey"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[EmpleadoKey]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Outputs[Salida de entradas coincidentes de búsqueda].Columns[EmpleadoKey]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[TransportistaKey]"
+                      cachedDataType="i4"
+                      cachedName="TransportistaKey"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[TransportistaKey]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Outputs[Salida de entradas coincidentes de búsqueda].Columns[TransportistaKey]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[OrdenID]"
+                      dataType="i4"
+                      name="OrdenID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[ProductoKey]"
+                      dataType="i4"
+                      name="ProductoKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaOrdenKey]"
+                      dataType="i4"
+                      name="FechaOrdenKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[FechaEnvioKey]"
+                      dataType="i4"
+                      name="FechaEnvioKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[ClienteKey]"
+                      dataType="i4"
+                      name="ClienteKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[EmpleadoKey]"
+                      dataType="i4"
+                      name="EmpleadoKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[TransportistaKey]"
+                      dataType="i4"
+                      name="TransportistaKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Cantidad]"
+                      dataType="i4"
+                      name="Cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[PrecioUnitario]"
+                      dataType="numeric"
+                      name="PrecioUnitario"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Descuento]"
+                      dataType="numeric"
+                      name="Descuento"
+                      precision="4"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoBruto]"
+                      dataType="numeric"
+                      name="MontoBruto"
+                      precision="12"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoDescuento]"
+                      dataType="numeric"
+                      name="MontoDescuento"
+                      precision="12"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[MontoNeto]"
+                      dataType="numeric"
+                      name="MontoNeto"
+                      precision="12"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[DiasDespacho]"
+                      dataType="i4"
+                      name="DiasDespacho" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="LKP Cliente"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Dim_Cliente]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Dim_Cliente]) [refTable]
+where [refTable].[ClienteID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ClienteKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ClienteID" dataType="DT_WSTR" length="5" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Empresa" dataType="DT_WSTR" length="40" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Ciudad" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Pais" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[ClienteID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Connections[OleDbConnection]"
+                  connectionManagerID="{3E550BEC-B1C8-4CF0-9FAB-F8739673DAD6}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Destino_KentFoodsDW]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Inputs[Entrada de búsqueda].Columns[ClienteID]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="ClienteID"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[ClienteID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">ClienteID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Outputs[Salida de entradas coincidentes de búsqueda].Columns[ClienteKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Outputs[Salida de entradas coincidentes de búsqueda].Columns[ClienteKey]"
+                      name="ClienteKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">ClienteKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="LKP Empleado"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Dim_Empleado]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Dim_Empleado]) [refTable]
+where [refTable].[EmpleadoID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="EmpleadoKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EmpleadoID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NombreEmpleado" dataType="DT_WSTR" length="31" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Cargo" dataType="DT_WSTR" length="30" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Pais" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Region" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[EmpleadoID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Connections[OleDbConnection]"
+                  connectionManagerID="{3E550BEC-B1C8-4CF0-9FAB-F8739673DAD6}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Destino_KentFoodsDW]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Inputs[Entrada de búsqueda].Columns[EmpleadoID]"
+                      cachedDataType="i4"
+                      cachedName="EmpleadoID"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[EmpleadoID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">EmpleadoID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Outputs[Salida de entradas coincidentes de búsqueda].Columns[EmpleadoKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Outputs[Salida de entradas coincidentes de búsqueda].Columns[EmpleadoKey]"
+                      name="EmpleadoKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">EmpleadoKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="LKP Producto"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Dim_Producto]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Dim_Producto]) [refTable]
+where [refTable].[ProductoID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ProductoKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ProductoID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Producto" dataType="DT_WSTR" length="40" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Categoria" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Proveedor" dataType="DT_WSTR" length="40" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PaisProveedor" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[ProductoID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Connections[OleDbConnection]"
+                  connectionManagerID="{3E550BEC-B1C8-4CF0-9FAB-F8739673DAD6}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Destino_KentFoodsDW]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Inputs[Entrada de búsqueda].Columns[ProductoID]"
+                      cachedDataType="i4"
+                      cachedName="ProductoID"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[ProductoID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">ProductoID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Outputs[Salida de entradas coincidentes de búsqueda].Columns[ProductoKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Outputs[Salida de entradas coincidentes de búsqueda].Columns[ProductoKey]"
+                      name="ProductoKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">ProductoKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="LKP Transportista"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Dim_Transportista]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Dim_Transportista]) [refTable]
+where [refTable].[TransportistaID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="TransportistaKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TransportistaID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Transportista" dataType="DT_WSTR" length="40" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[TransportistaID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Connections[OleDbConnection]"
+                  connectionManagerID="{3E550BEC-B1C8-4CF0-9FAB-F8739673DAD6}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Destino_KentFoodsDW]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Inputs[Entrada de búsqueda].Columns[TransportistaID]"
+                      cachedDataType="i4"
+                      cachedName="TransportistaID"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[TransportistaID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">TransportistaID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Outputs[Salida de entradas coincidentes de búsqueda].Columns[TransportistaKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copiar columna"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Outputs[Salida de entradas coincidentes de búsqueda].Columns[TransportistaKey]"
+                      name="TransportistaKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">TransportistaKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="Origen de OLE DB"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT d.OrdenID, d.ProductoID, o.ClienteID, o.EmpleadoID, o.EnviadoPor AS TransportistaID,
+       CONVERT(INT, CONVERT(CHAR(8), o.FechaOrden, 112)) AS FechaOrdenKey,
+       CONVERT(INT, CONVERT(CHAR(8), o.FechaEnvio, 112)) AS FechaEnvioKey,
+       CAST(d.Cantidad AS INT) AS Cantidad,
+       CAST(d.PrecioUnitario AS DECIMAL(10,2)) AS PrecioUnitario,
+       CAST(d.Descuento AS DECIMAL(4,2)) AS Descuento,
+       CAST(d.Cantidad * d.PrecioUnitario AS DECIMAL(12,2)) AS MontoBruto,
+       CAST(d.Cantidad * d.PrecioUnitario * CAST(CAST(d.Descuento AS DECIMAL(4,2)) AS MONEY) AS DECIMAL(12,2)) AS MontoDescuento,
+       CAST(d.Cantidad * d.PrecioUnitario AS DECIMAL(12,2))
+         - CAST(d.Cantidad * d.PrecioUnitario * CAST(CAST(d.Descuento AS DECIMAL(4,2)) AS MONEY) AS DECIMAL(12,2)) AS MontoNeto,
+       DATEDIFF(DAY, o.FechaOrden, o.FechaEnvio) AS DiasDespacho
+FROM dbo.DetalleOrden d
+JOIN dbo.Ordenes o ON o.OrdenID = d.OrdenID;</property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{9E658292-008E-41B1-A6B6-FCB80F2AF600}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Origen_KentFoods]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[OrdenID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[OrdenID]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[OrdenID]"
+                      name="OrdenID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[ProductoID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[ProductoID]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[ProductoID]"
+                      name="ProductoID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[ClienteID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[ClienteID]"
+                      length="5"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[ClienteID]"
+                      name="ClienteID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[EmpleadoID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[EmpleadoID]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[EmpleadoID]"
+                      name="EmpleadoID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[TransportistaID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[TransportistaID]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[TransportistaID]"
+                      name="TransportistaID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[FechaOrdenKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaOrdenKey]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[FechaOrdenKey]"
+                      name="FechaOrdenKey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[FechaEnvioKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaEnvioKey]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[FechaEnvioKey]"
+                      name="FechaEnvioKey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Cantidad]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Cantidad]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Cantidad]"
+                      name="Cantidad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[PrecioUnitario]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[PrecioUnitario]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[PrecioUnitario]"
+                      name="PrecioUnitario"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Descuento]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Descuento]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Descuento]"
+                      name="Descuento"
+                      precision="4"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[MontoBruto]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoBruto]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[MontoBruto]"
+                      name="MontoBruto"
+                      precision="12"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[MontoDescuento]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoDescuento]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[MontoDescuento]"
+                      name="MontoDescuento"
+                      precision="12"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[MontoNeto]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoNeto]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[MontoNeto]"
+                      name="MontoNeto"
+                      precision="13"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[DiasDespacho]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[DiasDespacho]"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[DiasDespacho]"
+                      name="DiasDespacho"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[OrdenID]"
+                      dataType="i4"
+                      name="OrdenID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[ProductoID]"
+                      dataType="i4"
+                      name="ProductoID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[ClienteID]"
+                      dataType="wstr"
+                      length="5"
+                      name="ClienteID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[EmpleadoID]"
+                      dataType="i4"
+                      name="EmpleadoID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[TransportistaID]"
+                      dataType="i4"
+                      name="TransportistaID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaOrdenKey]"
+                      dataType="i4"
+                      name="FechaOrdenKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[FechaEnvioKey]"
+                      dataType="i4"
+                      name="FechaEnvioKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Cantidad]"
+                      dataType="i4"
+                      name="Cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[PrecioUnitario]"
+                      dataType="numeric"
+                      name="PrecioUnitario"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Descuento]"
+                      dataType="numeric"
+                      name="Descuento"
+                      precision="4"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoBruto]"
+                      dataType="numeric"
+                      name="MontoBruto"
+                      precision="12"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoDescuento]"
+                      dataType="numeric"
+                      name="MontoDescuento"
+                      precision="12"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[MontoNeto]"
+                      dataType="numeric"
+                      name="MontoNeto"
+                      precision="13"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[DiasDespacho]"
+                      dataType="i4"
+                      name="DiasDespacho" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[OrdenID]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[OrdenID]"
+                      name="OrdenID" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ProductoID]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ProductoID]"
+                      name="ProductoID" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ClienteID]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ClienteID]"
+                      name="ClienteID" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[EmpleadoID]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[EmpleadoID]"
+                      name="EmpleadoID" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[TransportistaID]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[TransportistaID]"
+                      name="TransportistaID" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[FechaOrdenKey]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[FechaOrdenKey]"
+                      name="FechaOrdenKey" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[FechaEnvioKey]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[FechaEnvioKey]"
+                      name="FechaEnvioKey" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Cantidad]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Cantidad]"
+                      name="Cantidad" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[PrecioUnitario]"
+                      dataType="numeric"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[PrecioUnitario]"
+                      name="PrecioUnitario"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Descuento]"
+                      dataType="numeric"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Descuento]"
+                      name="Descuento"
+                      precision="4"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[MontoBruto]"
+                      dataType="numeric"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[MontoBruto]"
+                      name="MontoBruto"
+                      precision="12"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[MontoDescuento]"
+                      dataType="numeric"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[MontoDescuento]"
+                      name="MontoDescuento"
+                      precision="12"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[MontoNeto]"
+                      dataType="numeric"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[MontoNeto]"
+                      name="MontoNeto"
+                      precision="13"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[DiasDespacho]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[DiasDespacho]"
+                      name="DiasDespacho" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT Cargar Fact_Detalle_Venta.Paths[Salida de entradas coincidentes de búsqueda]"
+              endId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Inputs[Entrada de búsqueda]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\DFT Cargar Fact_Detalle_Venta.Paths[Salida de entradas coincidentes de búsqueda1]"
+              endId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Inputs[Entrada de búsqueda]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\DFT Cargar Fact_Detalle_Venta.Paths[Salida de entradas coincidentes de búsqueda2]"
+              endId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Inputs[Entrada de búsqueda]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\DFT Cargar Fact_Detalle_Venta.Paths[Salida de entradas coincidentes de búsqueda3]"
+              endId="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\DFT Cargar Fact_Detalle_Venta.Paths[Salida de origen de OLE DB]"
+              endId="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente.Inputs[Entrada de búsqueda]"
+              name="Salida de origen de OLE DB"
+              startId="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB.Outputs[Salida de origen de OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="236,42"
+          Id="Package\DFT Cargar Fact_Detalle_Venta"
+          TopLeft="307,167" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT Cargar Fact_Detalle_Venta">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="170,42"
+          Id="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB"
+          TopLeft="234,268" />
+        <NodeLayout
+          Size="137,42"
+          Id="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente"
+          TopLeft="496.5,89.5" />
+        <EdgeLayout
+          Id="Package\DFT Cargar Fact_Detalle_Venta.Paths[Salida de origen de OLE DB]"
+          TopLeft="319,268">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="224.5,-136.5"
+              Start="0,0"
+              End="224.5,-129">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-76.9545454545455" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-76.9545454545455"
+                    Point2="0,-80.9545454545455"
+                    Point3="4,-80.9545454545455" />
+                  <mssgle:LineSegment
+                    End="220.5,-80.9545454545455" />
+                  <mssgle:CubicBezierSegment
+                    Point1="220.5,-80.9545454545455"
+                    Point2="224.5,-80.9545454545455"
+                    Point3="224.5,-84.9545454545455" />
+                  <mssgle:LineSegment
+                    End="224.5,-129" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="147,42"
+          Id="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto"
+          TopLeft="506,254" />
+        <EdgeLayout
+          Id="Package\DFT Cargar Fact_Detalle_Venta.Paths[Salida de entradas coincidentes de búsqueda]"
+          TopLeft="583,131.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,122.5"
+              Start="0,0"
+              End="0,115">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,115" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-99.8190234375,51.40234375,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="167,42"
+          Id="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista"
+          TopLeft="503,512" />
+        <NodeLayout
+          Size="152,42"
+          Id="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado"
+          TopLeft="507,407" />
+        <EdgeLayout
+          Id="Package\DFT Cargar Fact_Detalle_Venta.Paths[Salida de entradas coincidentes de búsqueda1]"
+          TopLeft="581.25,296">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,111"
+              Start="0,0"
+              End="0,103.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,103.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-99.8190234375,45.65234375,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT Cargar Fact_Detalle_Venta.Paths[Salida de entradas coincidentes de búsqueda2]"
+          TopLeft="584.75,449">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63"
+              Start="0,0"
+              End="0,55.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-99.8190234375,21.65234375,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="175,42"
+          Id="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB"
+          TopLeft="161,490" />
+        <EdgeLayout
+          Id="Package\DFT Cargar Fact_Detalle_Venta.Paths[Salida de entradas coincidentes de búsqueda3]"
+          TopLeft="503,533">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-167,-22"
+              Start="0,0"
+              End="-159.5,-22">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-79.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-79.5,0"
+                    Point2="-83.5,0"
+                    Point3="-83.5,-4" />
+                  <mssgle:LineSegment
+                    End="-83.5,-18" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-83.5,-18"
+                    Point2="-83.5,-22"
+                    Point3="-87.5,-22" />
+                  <mssgle:LineSegment
+                    End="-159.5,-22" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-183.3190234375,1,199.638046875,12.1953125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT Cargar Fact_Detalle_Venta\Origen de OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT Cargar Fact_Detalle_Venta\LKP Cliente">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_Cliente]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT Cargar Fact_Detalle_Venta\LKP Producto">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_Producto]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT Cargar Fact_Detalle_Venta\LKP Transportista">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_Transportista]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT Cargar Fact_Detalle_Venta\LKP Empleado">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_Empleado]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT Cargar Fact_Detalle_Venta\Destino de OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

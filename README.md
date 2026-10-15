@@ -30,7 +30,7 @@ que hay (no hay datos de flete, costo de envío ni fecha requerida, así
 que no se puede sacar margen ni "despachos atrasados"):
 
 - **Ventas netas** (precio × cantidad × (1 − descuento)): cuánto se
-  vende de verdad una vez aplicados los descuentos. Da 1.265.793,29 en
+  vende de verdad una vez aplicados los descuentos. Da 1.265.792,76 en
   el período completo (jul-2016 a may-2018).
 - **Ticket promedio**: ventas netas ÷ número de órdenes. 1.525 por
   orden.
@@ -139,7 +139,7 @@ Dim_Tiempo → Fact_Detalle_Venta`.
 
 Una carga de prueba contra la versión anterior del esquema (antes de las
 claves sustitutas) dio los números que esperábamos: 830 órdenes, 51.317
-unidades, 1.354.458,59 de bruto, 88.665,83 de descuento, 1.265.793,29 de
+unidades, 1.354.458,59 de bruto, 88.665,83 de descuento, 1.265.792,76 de
 neto, 91 clientes, 77 productos, 9 empleados y 3 transportistas. Con el
 calendario continuo, `Dim_Tiempo` pasa a tener 1.096 fechas. Hay que
 repetir esta validación con la carga de SSIS, con

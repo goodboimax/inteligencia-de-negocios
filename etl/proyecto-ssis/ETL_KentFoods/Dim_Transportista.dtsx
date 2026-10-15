@@ -1,0 +1,398 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/15/2026 12:00:25 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-MMA8RHC"
+  DTS:CreatorName="DESKTOP-MMA8RHC\Usuario"
+  DTS:DTSID="{31C0A9EC-1E27-4619-856E-90E94C28C5D6}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.521.0"
+  DTS:LocaleID="13322"
+  DTS:ObjectName="Dim_Transportista"
+  DTS:PackageType="5"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{4D4E1024-99C8-4563-A6CC-D7186176EE1A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT Cargar Dim_Transportista"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{F5698F01-18F5-45A7-92B3-0E137E65BA95}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT Cargar Dim_Transportista"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Destino de OLE DB"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[Dim_Transportista]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{3E550BEC-B1C8-4CF0-9FAB-F8739673DAD6}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Destino_KentFoodsDW]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[TransportistaID]"
+                      cachedDataType="i4"
+                      cachedName="TransportistaID"
+                      externalMetadataColumnId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[TransportistaID]"
+                      lineageId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[TransportistaID]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Transportista]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="Transportista"
+                      externalMetadataColumnId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Transportista]"
+                      lineageId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Transportista]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[TransportistaKey]"
+                      dataType="i4"
+                      name="TransportistaKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[TransportistaID]"
+                      dataType="i4"
+                      name="TransportistaID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Transportista]"
+                      dataType="wstr"
+                      length="40"
+                      name="Transportista" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="Origen de OLE DB"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT TransportistaID, Transportista FROM dbo.Transportistas ORDER BY TransportistaID;</property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{9E658292-008E-41B1-A6B6-FCB80F2AF600}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Origen_KentFoods]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[TransportistaID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[TransportistaID]"
+                      lineageId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[TransportistaID]"
+                      name="TransportistaID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Transportista]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Transportista]"
+                      length="40"
+                      lineageId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Transportista]"
+                      name="Transportista"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[TransportistaID]"
+                      dataType="i4"
+                      name="TransportistaID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Transportista]"
+                      dataType="wstr"
+                      length="40"
+                      name="Transportista" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[TransportistaID]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[TransportistaID]"
+                      name="TransportistaID" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Transportista]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Transportista]"
+                      name="Transportista" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT Cargar Dim_Transportista.Paths[Salida de origen de OLE DB]"
+              endId="Package\DFT Cargar Dim_Transportista\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de origen de OLE DB"
+              startId="Package\DFT Cargar Dim_Transportista\Origen de OLE DB.Outputs[Salida de origen de OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="230,42"
+          Id="Package\DFT Cargar Dim_Transportista"
+          TopLeft="265,133" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT Cargar Dim_Transportista">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="170,42"
+          Id="Package\DFT Cargar Dim_Transportista\Origen de OLE DB"
+          TopLeft="236.5,178.5" />
+        <NodeLayout
+          Size="175,42"
+          Id="Package\DFT Cargar Dim_Transportista\Destino de OLE DB"
+          TopLeft="215,366" />
+        <EdgeLayout
+          Id="Package\DFT Cargar Dim_Transportista.Paths[Salida de origen de OLE DB]"
+          TopLeft="321.5,220.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-19,145.5"
+              Start="0,0"
+              End="-19,138">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,68.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,68.75"
+                    Point2="0,72.75"
+                    Point3="-4,72.75" />
+                  <mssgle:LineSegment
+                    End="-15,72.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-15,72.75"
+                    Point2="-19,72.75"
+                    Point3="-19,76.75" />
+                  <mssgle:LineSegment
+                    End="-19,138" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT Cargar Dim_Transportista\Origen de OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT Cargar Dim_Transportista\Destino de OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,667 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/15/2026 4:22:25 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-MMA8RHC"
+  DTS:CreatorName="DESKTOP-MMA8RHC\Usuario"
+  DTS:DTSID="{DB5FF2FB-D7BA-46BF-AECD-55E9F714EF58}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.521.0"
+  DTS:LocaleID="13322"
+  DTS:ObjectName="Dim_Empleado"
+  DTS:PackageType="5"
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{34AACA49-8D32-46A1-9B4B-CEBB97CA136C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT Cargar Dim_Empleado"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{A089EBE1-3700-4A83-A3DB-00A137D2AC72}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT Cargar Dim_Empleado"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT Cargar Dim_Empleado\Columna derivada"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Columna derivada;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Crea nuevos valores de columna aplicando expresiones a las columnas de entrada de la transformación. Crea nuevas columnas o sobrescribe las columnas existentes. Por ejemplo, se concatenan los valores de las columnas 'nombre' y 'apellidos' para crear una columna 'nombre completo'."
+              name="Columna derivada"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT Cargar Dim_Empleado\Columna derivada.Inputs[Entrada de columna derivada]"
+                  description="Entrada en la transformación Columna derivada"
+                  name="Entrada de columna derivada">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Columna derivada.Inputs[Entrada de columna derivada].Columns[Nombre]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Nombre"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Nombre]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Columna derivada.Inputs[Entrada de columna derivada].Columns[Apellido]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Apellido"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Apellido]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Columna derivada.Inputs[Entrada de columna derivada].Columns[Region]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Region"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Region]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT Cargar Dim_Empleado\Columna derivada.Outputs[Salida de columna derivada]"
+                  description="Salida predeterminada de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  name="Salida de columna derivada"
+                  synchronousInputId="Package\DFT Cargar Dim_Empleado\Columna derivada.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Columna derivada.Outputs[Salida de columna derivada].Columns[RegionLimpia]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Columna derivada.Outputs[Salida de columna derivada].Columns[RegionLimpia]"
+                      name="RegionLimpia"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">[RTRIM](#{Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Region]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">RTRIM(Region)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Columna derivada.Outputs[Salida de columna derivada].Columns[NombreEmpleado]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      length="31"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Columna derivada.Outputs[Salida de columna derivada].Columns[NombreEmpleado]"
+                      name="NombreEmpleado"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">#{Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Nombre]} + " " + #{Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Apellido]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">Nombre + " " + Apellido</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT Cargar Dim_Empleado\Columna derivada.Outputs[Salida de error de columna derivada]"
+                  description="Salida de error de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de columna derivada"
+                  synchronousInputId="Package\DFT Cargar Dim_Empleado\Columna derivada.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Destino de OLE DB"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[Dim_Empleado]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{3E550BEC-B1C8-4CF0-9FAB-F8739673DAD6}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Destino_KentFoodsDW]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[EmpleadoID]"
+                      cachedDataType="i4"
+                      cachedName="EmpleadoID"
+                      externalMetadataColumnId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[EmpleadoID]"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[EmpleadoID]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Cargo]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="Cargo"
+                      externalMetadataColumnId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Cargo]"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Cargo]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Pais]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Pais"
+                      externalMetadataColumnId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Pais]"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Pais]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[RegionLimpia]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="RegionLimpia"
+                      externalMetadataColumnId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Region]"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Columna derivada.Outputs[Salida de columna derivada].Columns[RegionLimpia]" />
+                    <inputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[NombreEmpleado]"
+                      cachedDataType="wstr"
+                      cachedLength="31"
+                      cachedName="NombreEmpleado"
+                      externalMetadataColumnId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[NombreEmpleado]"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Columna derivada.Outputs[Salida de columna derivada].Columns[NombreEmpleado]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[EmpleadoKey]"
+                      dataType="i4"
+                      name="EmpleadoKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[EmpleadoID]"
+                      dataType="i4"
+                      name="EmpleadoID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[NombreEmpleado]"
+                      dataType="wstr"
+                      length="31"
+                      name="NombreEmpleado" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Cargo]"
+                      dataType="wstr"
+                      length="30"
+                      name="Cargo" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Pais]"
+                      dataType="wstr"
+                      length="15"
+                      name="Pais" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[Region]"
+                      dataType="wstr"
+                      length="50"
+                      name="Region" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="Origen de OLE DB"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT e.EmpleadoID, e.Nombre, e.Apellido, e.Cargo, e.Pais, x.Region
+FROM dbo.Empleados e
+JOIN (SELECT DISTINCT te.EmpleadoID, r.Region
+      FROM dbo.TerritoriosEmpleados te
+      JOIN dbo.Territorios t ON t.TerritorioID = te.TerritorioID
+      JOIN dbo.Regiones    r ON r.RegionID     = t.RegionID) x ON x.EmpleadoID = e.EmpleadoID
+ORDER BY e.EmpleadoID;</property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{9E658292-008E-41B1-A6B6-FCB80F2AF600}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Origen_KentFoods]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[EmpleadoID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[EmpleadoID]"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[EmpleadoID]"
+                      name="EmpleadoID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Nombre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Nombre]"
+                      length="10"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Nombre]"
+                      name="Nombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Apellido]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Apellido]"
+                      length="20"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Apellido]"
+                      name="Apellido"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Cargo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Cargo]"
+                      length="30"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Cargo]"
+                      name="Cargo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Pais]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Pais]"
+                      length="15"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Pais]"
+                      name="Pais"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Region]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Region]"
+                      length="50"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].Columns[Region]"
+                      name="Region"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[EmpleadoID]"
+                      dataType="i4"
+                      name="EmpleadoID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Nombre]"
+                      dataType="wstr"
+                      length="10"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Apellido]"
+                      dataType="wstr"
+                      length="20"
+                      name="Apellido" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Cargo]"
+                      dataType="wstr"
+                      length="30"
+                      name="Cargo" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Pais]"
+                      dataType="wstr"
+                      length="15"
+                      name="Pais" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB].ExternalColumns[Region]"
+                      dataType="wstr"
+                      length="50"
+                      name="Region" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[EmpleadoID]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[EmpleadoID]"
+                      name="EmpleadoID" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Nombre]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Nombre]"
+                      name="Nombre" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Apellido]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Apellido]"
+                      name="Apellido" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Cargo]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Cargo]"
+                      name="Cargo" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Pais]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Pais]"
+                      name="Pais" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Region]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[Region]"
+                      name="Region" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT Cargar Dim_Empleado.Paths[Salida de columna derivada]"
+              endId="Package\DFT Cargar Dim_Empleado\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de columna derivada"
+              startId="Package\DFT Cargar Dim_Empleado\Columna derivada.Outputs[Salida de columna derivada]" />
+            <path
+              refId="Package\DFT Cargar Dim_Empleado.Paths[Salida de origen de OLE DB]"
+              endId="Package\DFT Cargar Dim_Empleado\Columna derivada.Inputs[Entrada de columna derivada]"
+              name="Salida de origen de OLE DB"
+              startId="Package\DFT Cargar Dim_Empleado\Origen de OLE DB.Outputs[Salida de origen de OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="215,42"
+          Id="Package\DFT Cargar Dim_Empleado"
+          TopLeft="464,237" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT Cargar Dim_Empleado">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="170,42"
+          Id="Package\DFT Cargar Dim_Empleado\Origen de OLE DB"
+          TopLeft="346,255" />
+        <NodeLayout
+          Size="175,42"
+          Id="Package\DFT Cargar Dim_Empleado\Destino de OLE DB"
+          TopLeft="338,385" />
+        <NodeLayout
+          Size="168,42"
+          Id="Package\DFT Cargar Dim_Empleado\Columna derivada"
+          TopLeft="596,262" />
+        <EdgeLayout
+          Id="Package\DFT Cargar Dim_Empleado.Paths[Salida de origen de OLE DB]"
+          TopLeft="516,279.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="80,0"
+              Start="0,0"
+              End="72.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="72.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT Cargar Dim_Empleado.Paths[Salida de columna derivada]"
+          TopLeft="680,304">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-254.5,81"
+              Start="0,0"
+              End="-254.5,73.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,36.5"
+                    Point2="0,40.5"
+                    Point3="-4,40.5" />
+                  <mssgle:LineSegment
+                    End="-250.5,40.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-250.5,40.5"
+                    Point2="-254.5,40.5"
+                    Point3="-254.5,44.5" />
+                  <mssgle:LineSegment
+                    End="-254.5,73.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT Cargar Dim_Empleado\Origen de OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT Cargar Dim_Empleado\Destino de OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
