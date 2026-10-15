@@ -8,7 +8,7 @@ Caso 3: Kent Foods, empresa de venta de alimentos con envío a domicilio.
 
 Trabajo individual, autorizado por el profesor.
 
-Inteligencia de Negocios - UTFSM, segundo semestre 2026.
+Inteligencia de Negocios - UTFSM, paralelo 300, segundo semestre 2026.
 
 ## Descripción del problema
 La base transaccional (`KentFoods.bak`) tiene órdenes, detalle de
