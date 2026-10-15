@@ -34,7 +34,7 @@ se puede calcular margen ni despachos atrasados. Con lo que hay:
   mínimo 1 y máximo 37. Las 21 órdenes sin despachar no entran al
   promedio.
 - **% de descuento**: descuentos sobre el monto bruto. 6,5% (88.665,83
-  de 1.354.458,59).
+  de 1.354.458,59), o sea 107 por orden en promedio.
 - **Ventas por empleado**: Peacock es la que más vende (232.891) y
   Buchanan el que menos (68.792).
 - **Ventas por categoría y proveedor**: Beverages lidera con el 21% del
@@ -105,6 +105,11 @@ hace todo en orden:
    montos, días de despacho y las claves de fecha `AAAAMMDD`. Después
    cuatro Lookups cambian `ClienteID`, `EmpleadoID`, `ProductoID` y
    `TransportistaID` por las claves sustitutas.
+
+El orden entre las dimensiones da lo mismo, porque ninguna depende de
+otra. Lo que sí importa es limpiar al principio (para que la carga se
+pueda repetir) y dejar el hecho al final, porque sus Lookups necesitan
+las dimensiones ya cargadas.
 
 ### Validación
 `database/scripts/03_validar_carga.sql` compara la carga contra los
