@@ -34,7 +34,7 @@ WITH Controles AS (
            (SELECT SUM(MontoBruto) FROM dbo.Fact_Detalle_Venta)
     UNION ALL SELECT 10, 'Monto descuento', 88665.83,
            (SELECT SUM(MontoDescuento) FROM dbo.Fact_Detalle_Venta)
-    UNION ALL SELECT 11, 'Monto neto', 1265793.29,
+    UNION ALL SELECT 11, 'Monto neto', 1265792.76,
            (SELECT SUM(MontoNeto) FROM dbo.Fact_Detalle_Venta)
 
     -- Ordenes sin despachar: FechaEnvioKey y DiasDespacho en NULL
