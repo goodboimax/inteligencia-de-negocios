@@ -1,179 +1,164 @@
 # Certamen 2 - Inteligencia de Negocios
 
 ## Caso seleccionado
-Caso 3: Kent Foods (empresa de venta de alimentos con envío a domicilio).
+Caso 3: Kent Foods, empresa de venta de alimentos con envío a domicilio.
 
 ## Integrantes y sección
-- _Nombre Apellido_ (@goodboimax)
+- Maximiliano Pozo (@goodboimax)
 
 Trabajo individual, autorizado por el profesor.
 
-Asignatura: Inteligencia de Negocios - UTFSM. Sección: _por completar_. Profesor(a): _por completar_.
+Inteligencia de Negocios - UTFSM, paralelo 300, segundo semestre 2026.
 
 ## Descripción del problema
-Kent Foods vende alimentos con envío a domicilio. La base que nos dieron
-(`KentFoods.bak`) tiene las órdenes, el detalle de productos, clientes,
-empleados, transportistas, proveedores y categorías, pero para sacar
-cualquier número hay que hacer join de varias tablas cada vez. La idea
-es armar un modelo dimensional que deje esa información lista para
-consultar, y que después sirva de base para el cubo OLAP y el dashboard
-de la Fase 2.
+La base transaccional (`KentFoods.bak`) tiene órdenes, detalle de
+productos, clientes, empleados, transportistas, proveedores y
+categorías. Para sacar cualquier indicador hay que cruzar varias tablas
+cada vez. La idea es armar un modelo dimensional que deje esa
+información lista para consultar y que después sirva para el cubo y el
+dashboard de la Fase 2.
 
 ## Objetivo del proyecto
-En esta fase: diseñar el modelo dimensional, implementarlo en SQL Server
-y construir el ETL que lo carga desde la base transaccional. También
-definir los KPI que el modelo tiene que poder responder.
+Fase 1: definir los KPI, diseñar el modelo dimensional, crearlo en SQL
+Server y cargarlo con un ETL en SSIS desde la base transaccional.
 
 ## KPI definidos
-Elegimos estos seis a partir de lo que se puede calcular con las tablas
-que hay (no hay datos de flete, costo de envío ni fecha requerida, así
-que no se puede sacar margen ni "despachos atrasados"):
+La base no tiene flete, costo de envío ni fecha requerida, así que no
+se puede calcular margen ni despachos atrasados. Con lo que hay:
 
-- **Ventas netas** (precio × cantidad × (1 − descuento)): cuánto se
-  vende de verdad una vez aplicados los descuentos. Da 1.265.792,76 en
-  el período completo (jul-2016 a may-2018).
-- **Ticket promedio**: ventas netas ÷ número de órdenes. 1.525 por
-  orden.
-- **Días promedio de despacho** (FechaEnvio − FechaOrden): 8,5 días en
-  promedio, con mínimo 1 y máximo 37. Hay 21 órdenes que todavía no se
-  despachan, esas quedan fuera del promedio.
-- **% de descuento otorgado**: cuánto se regala en descuentos sobre el
-  total bruto. 6,5% (88.665,83 de 1.354.458,59).
-- **Ventas por empleado**: para ver quién vende más. Peacock está
-  arriba con 232.891, Buchanan más abajo con 68.792.
-- **Ventas por categoría y proveedor**: Beverages es la categoría que
-  más vende, con 21% del total (267.868).
-
-Nos quedó pendiente un séptimo (demora por transportista: Federal
-Shipping 7,5 días, Speedy Express 8,6, United Package 9,2) pero con
-seis alcanza para el proyecto.
+- **Ventas netas** (precio × cantidad × (1 − descuento)): lo que
+  realmente se vende después de descuentos. 1.265.792,76 en todo el
+  período (jul-2016 a may-2018).
+- **Ticket promedio** (ventas netas / órdenes): 1.525 por orden.
+- **Días promedio de despacho** (FechaEnvio − FechaOrden): 8,5 días,
+  mínimo 1 y máximo 37. Las 21 órdenes sin despachar no entran al
+  promedio.
+- **% de descuento**: descuentos sobre el monto bruto. 6,5% (88.665,83
+  de 1.354.458,59), o sea 107 por orden en promedio.
+- **Ventas por empleado**: Peacock es la que más vende (232.891) y
+  Buchanan el que menos (68.792).
+- **Ventas por categoría y proveedor**: Beverages lidera con el 21% del
+  total (267.868).
 
 ## Modelo dimensional
-
-Usamos esquema **estrella** (diagrama en `docs/modelo-dimensional/diagrama.md`).
-Categoría y Proveedor quedan dentro de `Dim_Producto`, y Región dentro de
-`Dim_Empleado`, en vez de hacerlas tablas aparte. Es el mismo formato que
-se usó en los ejercicios Kollao del curso y necesita menos joins que un
-copo de nieve.
-
-Los 4 pasos de Kimball, aplicados a este caso:
+Esquema estrella (diagrama en `docs/modelo-dimensional/diagrama.md`).
+Categoría y Proveedor quedan dentro de `Dim_Producto` y Región dentro de
+`Dim_Empleado`, igual que en los ejercicios Kollao del curso. Así se
+hacen menos joins que con copo de nieve.
 
 ### Proceso de negocio
-Las ventas de alimentos con envío (órdenes) de Kent Foods.
+Ventas (órdenes) de Kent Foods.
 
 ### Granularidad
-Un registro por cada producto vendido dentro de una orden, o sea una
-fila de `DetalleOrden` en la base original. Es el detalle más fino que
-se puede sacar.
+Una fila por producto dentro de una orden, o sea una fila de
+`DetalleOrden`. Es el nivel más fino disponible.
 
 ### Dimensiones
-Tiempo (¿cuándo?, se usa dos veces: FechaOrden y FechaEnvio), Cliente
-(¿quién compra?), Producto (¿qué?, con categoría y proveedor adentro),
-Empleado (¿quién vende?, con región adentro) y Transportista (¿quién
-despacha?).
+- `Dim_Tiempo`: se usa dos veces, para la fecha de orden y la de envío.
+- `Dim_Cliente`: quién compra.
+- `Dim_Producto`: qué se vende, con categoría y proveedor.
+- `Dim_Empleado`: quién vende, con su región.
+- `Dim_Transportista`: quién despacha.
 
-Cada dimensión tiene una **clave sustituta** (`ClienteKey`,
-`ProductoKey`, etc., `INT IDENTITY`) generada por el DW, y guarda el ID
-de la base original como clave de negocio (`ClienteID`, `ProductoID`,
-etc.). `Dim_Tiempo` usa como clave la fecha en entero `AAAAMMDD` y es un
-calendario continuo (2016–2018, todos los días aunque no haya ventas),
-con columnas `AnioMes` y `AnioTrimestre` para que la jerarquía funcione
-en el cubo.
+Cada dimensión tiene clave sustituta (`ClienteKey`, `ProductoKey`,
+etc., `INT IDENTITY`) y guarda el ID original como clave de negocio.
+`Dim_Tiempo` usa la fecha como entero `AAAAMMDD` y tiene todos los días
+de 2016 a 2018, aunque no haya ventas.
 
 ### Tabla de hechos y medidas
-La tabla de hechos es `Fact_Detalle_Venta`, con clave primaria
-`OrdenID + ProductoKey` (`OrdenID` queda como dimensión degenerada) y
-una foránea a la clave sustituta de cada dimensión.
+`Fact_Detalle_Venta`, con clave `OrdenID + ProductoKey`. `OrdenID` queda
+como dimensión degenerada (sirve para contar órdenes).
 
-Medidas: Cantidad, PrecioUnitario, MontoBruto, MontoDescuento,
-MontoNeto (ya calculado como bruto menos descuento) y DiasDespacho. Se
-calculan siempre con el precio que quedó guardado en `DetalleOrden`, no
-con el de `Productos` (que es el precio actual del catálogo), porque en
-658 de las 2.155 líneas son distintos.
+Medidas: Cantidad, PrecioUnitario, Descuento, MontoBruto,
+MontoDescuento, MontoNeto y DiasDespacho. Se usa el precio de
+`DetalleOrden` y no el de `Productos`, porque ese es el precio actual
+del catálogo y no coincide en 658 de las 2.155 líneas.
 
-Para el cubo de la Fase 2 identificamos estas jerarquías: Tiempo va
-Año > Trimestre > Mes > Día, Producto va Categoría > Producto y Empleado
-va Región > Empleado.
+Jerarquías pensadas para el cubo: Año > Trimestre > Mes > Día,
+Categoría > Producto y Región > Empleado.
 
-Cosas de la base original que hubo que resolver antes de armar el
-modelo:
-- El `Descuento` llega como `real` y queda con errores de redondeo
-  (0.15000001 en vez de 0.15), así que en el ETL se convierte a
+### Problemas de la base original
+- `Descuento` viene como `real` (0.15000001 en vez de 0.15), se pasa a
   `DECIMAL(4,2)`.
-- 21 órdenes (73 líneas del hecho) todavía no se despachan, entonces
-  `FechaEnvioKey` y `DiasDespacho` quedan en NULL para esas.
-- Un empleado puede tener varios territorios, pero siempre de la misma
-  región, así que a `Dim_Empleado` le pusimos `Region` directamente y
-  dejamos los territorios fuera.
-- `Region` y `Territorio` vienen con hartos espacios en blanco al final
-  (son `nchar(50)`), eso se limpia con `RTRIM` en el ETL.
-- Revisamos la integridad de la base original (sin huérfanas, sin
-  duplicados, sin fechas de envío antes que la orden) y está bien.
-- Las órdenes van de jul-2016 a may-2018, pero esos dos años están
-  incompletos, así que las comparaciones hay que hacerlas por mes o
-  trimestre, no por año.
+- 21 órdenes (73 líneas) no tienen fecha de envío: `FechaEnvioKey` y
+  `DiasDespacho` quedan en NULL.
+- Los empleados pueden tener varios territorios, pero siempre de la
+  misma región, así que solo se guarda la región.
+- `Region` viene con espacios al final (`nchar(50)`), se limpia con
+  `RTRIM`.
+- Los años 2016 y 2018 están incompletos, conviene comparar por mes o
+  trimestre.
 
 ## Proceso ETL - Fase 1
-El flujo de control primero borra el destino con
-`database/scripts/02_limpiar_dw.sql` (el hecho antes que las dimensiones,
-por las foráneas, y reinicia los IDENTITY para que las claves sustitutas
-partan en 1 en cada carga) y después carga en este orden:
-`Dim_Transportista → Dim_Cliente → Dim_Producto → Dim_Empleado →
-Dim_Tiempo → Fact_Detalle_Venta`.
+Proyecto en `etl/proyecto-ssis/ETL_KentFoods`. El paquete `Maestro.dtsx`
+hace todo en orden:
 
-- **Dim_Transportista** sale directo de `Transportistas`, sin cambios.
-- **Dim_Cliente** sale de `Clientes`, ordenado por `ClienteID`.
-- **Dim_Producto** sale de una consulta que une `Productos` con
-  `Categorias` y `Proveedores`.
-- **Dim_Empleado** sale de `Empleados` unido a su región (a través de
-  `Territorios` → `Regiones`, con DISTINCT y RTRIM), y se arma
-  `NombreEmpleado` juntando nombre y apellido.
-- **Dim_Tiempo** se llena ejecutando `dbo.usp_CargarDimTiempo` (una
-  tarea *Execute SQL*) con el rango 01-01-2016 a 31-12-2018, que cubre
-  todas las fechas de orden y de envío.
-- **Fact_Detalle_Venta** sale de `DetalleOrden` unido a `Ordenes`,
-  calculando los montos, `DiasDespacho` y convirtiendo el descuento a
-  `DECIMAL`. Después pasa por un *Lookup* contra cada dimensión para
-  cambiar los ID del origen por las claves sustitutas (`ClienteID` →
-  `ClienteKey`, etc.; las fechas → `FechaKey`).
+1. **Limpiar SQL** (Execute SQL): borra el hecho y las dimensiones y
+   reinicia los IDENTITY (mismo código que `02_limpiar_dw.sql`).
+2. `Dim_Transportista`, `Dim_Cliente`, `Dim_Producto`, `Dim_Empleado`:
+   un paquete con Data Flow cada uno. Producto une Productos, Categorias
+   y Proveedores; Empleado arma el nombre completo con una Derived Column
+   y trae la región por Territorios → Regiones.
+3. `Dim_Tiempo`: Execute SQL que llama a `usp_CargarDimTiempo` de
+   2016-01-01 a 2018-12-31.
+4. `Fact_Detalle_Venta`: consulta `DetalleOrden` + `Ordenes` calculando
+   montos, días de despacho y las claves de fecha `AAAAMMDD`. Después
+   cuatro Lookups cambian `ClienteID`, `EmpleadoID`, `ProductoID` y
+   `TransportistaID` por las claves sustitutas.
 
-Una carga de prueba contra la versión anterior del esquema (antes de las
-claves sustitutas) dio los números que esperábamos: 830 órdenes, 51.317
-unidades, 1.354.458,59 de bruto, 88.665,83 de descuento, 1.265.792,76 de
-neto, 91 clientes, 77 productos, 9 empleados y 3 transportistas. Con el
-calendario continuo, `Dim_Tiempo` pasa a tener 1.096 fechas. Hay que
-repetir esta validación con la carga de SSIS, con
-`database/scripts/03_validar_carga.sql` (19 controles: conteos, totales,
-NULL de despacho, montos y limpieza; todos deben dar OK).
-Falta armar los paquetes `.dtsx` en SSIS que hagan esta misma carga (eso
-va en Visual Studio, en Windows): un paquete por tabla más uno maestro
-que los ejecuta en orden.
+El orden entre las dimensiones da lo mismo, porque ninguna depende de
+otra. Lo que sí importa es limpiar al principio (para que la carga se
+pueda repetir) y dejar el hecho al final, porque sus Lookups necesitan
+las dimensiones ya cargadas.
+
+### Validación
+`database/scripts/03_validar_carga.sql` compara la carga contra los
+valores sacados de la base original (19 controles). Resultado de la
+última carga: todos OK.
+
+| Tabla | Filas |
+|---|---|
+| Dim_Cliente | 91 |
+| Dim_Producto | 77 |
+| Dim_Empleado | 9 |
+| Dim_Transportista | 3 |
+| Dim_Tiempo | 1.096 |
+| Fact_Detalle_Venta | 2.155 |
 
 ## Cubo OLAP - Fase 2
-_Pendiente (Fase 2)._
+_Pendiente._
 
 ## Dashboard Power BI - Fase 2
-_Pendiente (Fase 2)._
+_Pendiente._
 
 ## Tecnologías utilizadas
-SQL Server, Visual Studio (SSIS, SSAS), Power BI, Git/GitHub.
+SQL Server 2019, Visual Studio con SSIS (y SSAS en Fase 2), Power BI,
+Git/GitHub.
 
 ## Estructura del repositorio
 ```
 README.md
-docs/modelo-dimensional/   diagrama y documentación del modelo
-docs/presentacion/         presentación de cada fase
-database/scripts/          scripts SQL del modelo dimensional
-database/backup/           backup (.bak) de la BD dimensional
+docs/modelo-dimensional/   diagrama del modelo
+docs/presentacion/         presentaciones
+database/scripts/          01 crear modelo, 02 limpiar, 03 validar
+database/backup/           KentFoodsDW.bak
 etl/proyecto-ssis/         proyecto SSIS
-olap/proyecto-ssas/        proyecto SSAS (Fase 2)
-powerbi/                   dashboard .pbix (Fase 2)
+olap/proyecto-ssas/        Fase 2
+powerbi/                   Fase 2
 ```
 
 ## Instrucciones de ejecución/revisión
-_Por completar._
+Opción rápida: restaurar `database/backup/KentFoodsDW.bak` (SQL Server
+2019 o superior) y correr `03_validar_carga.sql`.
+
+Para correr el ETL desde cero:
+1. Restaurar `KentFoods.bak` (la base transaccional del caso).
+2. Ejecutar `database/scripts/01_crear_modelo.sql`.
+3. Abrir `ETL_KentFoods.sln` en Visual Studio y ejecutar `Maestro.dtsx`.
+   Las conexiones apuntan a `localhost` con autenticación de Windows.
+4. Ejecutar `database/scripts/03_validar_carga.sql`.
 
 ## Distribución de responsabilidades y aportes
-| Integrante | Aportes principales |
+| Integrante | Aportes |
 |---|---|
-| _Nombre_ | _por completar_ |
+| Maximiliano Pozo | Análisis del caso y KPI, modelo dimensional, scripts SQL, ETL en SSIS, validación y documentación |

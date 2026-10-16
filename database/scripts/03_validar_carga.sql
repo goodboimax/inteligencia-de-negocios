@@ -1,10 +1,6 @@
 -- 03_validar_carga.sql
--- Certamen 2 - Kent Foods - revisa que el ETL haya cargado bien KentFoodsDW
---
--- Se corre despues del paquete maestro de SSIS. Cada fila del resultado es
--- un control: lo que se espera (sacado de consultar la base original
--- KentFoods) contra lo que quedo en el DW. Si todo esta bien, la columna
--- Resultado dice OK en todas las filas.
+-- Kent Foods - se corre despues del Maestro.dtsx. Compara lo esperado
+-- (sacado de la base KentFoods) con lo cargado en el DW.
 
 USE KentFoodsDW;
 GO
@@ -25,7 +21,7 @@ WITH Controles AS (
     UNION ALL SELECT 6, 'Filas Fact_Detalle_Venta', 2155,
            (SELECT COUNT(*) FROM dbo.Fact_Detalle_Venta)
 
-    -- Totales de negocio (tienen que cuadrar con los KPI del README)
+    -- Totales
     UNION ALL SELECT 7, 'Ordenes distintas', 830,
            (SELECT COUNT(DISTINCT OrdenID) FROM dbo.Fact_Detalle_Venta)
     UNION ALL SELECT 8, 'Unidades vendidas', 51317,
@@ -37,7 +33,7 @@ WITH Controles AS (
     UNION ALL SELECT 11, 'Monto neto', 1265792.76,
            (SELECT SUM(MontoNeto) FROM dbo.Fact_Detalle_Venta)
 
-    -- Ordenes sin despachar: FechaEnvioKey y DiasDespacho en NULL
+    -- Ordenes sin despachar
     UNION ALL SELECT 12, 'Lineas sin despachar', 73,
            (SELECT COUNT(*) FROM dbo.Fact_Detalle_Venta WHERE FechaEnvioKey IS NULL)
     UNION ALL SELECT 13, 'Ordenes sin despachar', 21,
@@ -72,19 +68,17 @@ FROM Controles
 ORDER BY Orden;
 GO
 
--- Las huerfanas no se revisan aca porque las FK del hecho no lo permiten:
--- si el Lookup de SSIS no encuentra una clave, la fila no entra y se nota
--- en el conteo de Fact_Detalle_Venta (control 6).
+-- No se revisan huerfanas porque las FK no las dejan entrar. Si un Lookup
+-- no encuentra la clave la fila se descarta y se nota en el control 6.
 
--- Vista rapida de los KPI, para mostrar en la presentacion
+-- KPI
 SELECT
     SUM(MontoNeto)                                        AS VentasNetas,
     SUM(MontoNeto) / COUNT(DISTINCT OrdenID)              AS TicketPromedio,
     100.0 * SUM(MontoDescuento) / SUM(MontoBruto)         AS PorcentajeDescuento
 FROM dbo.Fact_Detalle_Venta;
 
--- Dias promedio de despacho: por orden, no por linea (si no, las ordenes
--- con mas productos pesarian mas en el promedio)
+-- dias promedio de despacho por orden, no por linea
 SELECT AVG(CAST(DiasDespacho AS DECIMAL(6,2))) AS DiasPromedioDespacho
 FROM (SELECT DISTINCT OrdenID, DiasDespacho
       FROM dbo.Fact_Detalle_Venta
