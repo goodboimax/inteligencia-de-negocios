@@ -1,0 +1,37 @@
+-- Kent Foods - consultas de validacion del cubo (SSMS > Analysis Services > New MDX Query)
+-- Los valores esperados salen de 03_validar_carga.sql sobre el DW.
+
+-- 1) KPI globales
+--    Monto Neto 1.265.792,76 | Ordenes 830 | Ticket 1.525,05 | % Descuento 6,5% | Dias 8,5
+--    Lineas Venta 2.155 | Cantidad 51.317 | Ordenes Despachadas 809
+SELECT {
+    [Measures].[Monto Neto], [Measures].[Ordenes], [Measures].[Ticket Promedio],
+    [Measures].[% Descuento], [Measures].[Dias Promedio Despacho],
+    [Measures].[Lineas Venta], [Measures].[Cantidad], [Measures].[Ordenes Despachadas]
+} ON COLUMNS
+FROM [KentFoods];
+
+-- 2) Ventas por empleado (Peacock la mas alta con 232.891, Buchanan la mas baja con 68.792)
+SELECT [Measures].[Monto Neto] ON COLUMNS,
+       ORDER([Empleado].[Empleado].[Empleado].MEMBERS, [Measures].[Monto Neto], BDESC) ON ROWS
+FROM [KentFoods];
+
+-- 3) Ventas por categoria (Beverages lidera con 267.868)
+SELECT {[Measures].[Monto Neto], [Measures].[% Descuento]} ON COLUMNS,
+       ORDER([Producto].[Categoria].[Categoria].MEMBERS, [Measures].[Monto Neto], BDESC) ON ROWS
+FROM [KentFoods];
+
+-- 4) Jerarquia de tiempo: ventas y ticket por trimestre
+SELECT {[Measures].[Monto Neto], [Measures].[Ordenes], [Measures].[Ticket Promedio]} ON COLUMNS,
+       NON EMPTY [Fecha Orden].[Calendario].[Trimestre].MEMBERS ON ROWS
+FROM [KentFoods];
+
+-- 5) Ordenes sin despachar: el miembro "Sin fecha" de Fecha Envio (21 ordenes, 73 lineas)
+SELECT {[Measures].[Ordenes], [Measures].[Lineas Venta]} ON COLUMNS,
+       {[Fecha Envio].[Fecha].UNKNOWNMEMBER} ON ROWS
+FROM [KentFoods];
+
+-- 6) Dias promedio de despacho por transportista
+SELECT {[Measures].[Dias Promedio Despacho], [Measures].[Ordenes Despachadas]} ON COLUMNS,
+       [Transportista].[Transportista].[Transportista].MEMBERS ON ROWS
+FROM [KentFoods];
