@@ -22,6 +22,9 @@ dashboard de la Fase 2.
 Fase 1: definir los KPI, diseñar el modelo dimensional, crearlo en SQL
 Server y cargarlo con un ETL en SSIS desde la base transaccional.
 
+Fase 2: construir un cubo OLAP en SSAS con esos KPI y un dashboard en
+Power BI conectado al cubo.
+
 ## KPI definidos
 La base no tiene flete, costo de envío ni fecha requerida, así que no
 se puede calcular margen ni despachos atrasados. Con lo que hay:
@@ -126,7 +129,53 @@ valores sacados de la base original (19 controles). Resultado de la
 | Fact_Detalle_Venta | 2.155 |
 
 ## Cubo OLAP - Fase 2
-_Pendiente._
+Cubo multidimensional `KentFoods` en SSAS, base `KentFoodsOLAP`. Se
+define en `olap/crear_cubo_kentfoods.xmla` (crea y procesa todo) y el
+proyecto de Visual Studio queda en `olap/proyecto-ssas`.
+
+### Preparación del DW
+`database/scripts/04_preparar_cubo.sql`:
+- Agrega a `Dim_Tiempo` tres columnas calculadas para nombrar los
+  niveles (`T1 2017`, `Enero 2017`, `15-01-2017`). No cambia el ETL.
+- Crea la vista `vw_Fact_Venta_Cubo`, que es lo que lee el cubo. Es el
+  hecho más dos columnas para el KPI de días de despacho, que es **por
+  orden** y no por línea: si una orden tiene n líneas, cada línea lleva
+  `1/n` de la orden y `DiasDespacho/n` de sus días. Sumando y dividiendo
+  sale el promedio por orden (8,5).
+- Da lectura sobre el DW a la cuenta del servicio de SSAS.
+
+### Dimensiones y jerarquías
+| Dimensión del cubo | Jerarquía | Otros atributos |
+|---|---|---|
+| Fecha Orden / Fecha Envío (rol de `Dim_Tiempo`) | Calendario: Año > Trimestre > Mes > Día | Mes del año |
+| Producto | Categorías: Categoría > Producto | Proveedor, País proveedor |
+| Empleado | Regiones: Región > Empleado | Cargo, País |
+| Cliente | Geografía: País > Cliente | Ciudad |
+| Transportista | | |
+
+Las 21 órdenes sin despachar tienen `FechaEnvioKey` NULL; en el cubo
+caen en el miembro desconocido **"Sin fecha"** de Fecha Envío en vez de
+descartarse.
+
+### Medidas
+- Grupo **Ventas**: Monto Neto, Monto Bruto, Monto Descuento,
+  Cantidad, Lineas Venta (conteo de filas), Ordenes Despachadas y Dias
+  Despacho Ponderado (oculta, sirve para el promedio).
+- Grupo **Ordenes**: Ordenes, *distinct count* de `OrdenID`. Va en un
+  grupo aparte porque SSAS recomienda un grupo por cada distinct count.
+
+### Correspondencia con los KPI
+| KPI | En el cubo |
+|---|---|
+| Ventas netas | `Monto Neto` |
+| Ticket promedio | `Ticket Promedio` = Monto Neto / Ordenes (MDX) |
+| Días promedio de despacho | `Dias Promedio Despacho` = Dias Despacho Ponderado / Ordenes Despachadas (MDX) |
+| % de descuento | `% Descuento` = Monto Descuento / Monto Bruto (MDX) |
+| Ventas por empleado | `Monto Neto` × jerarquía Regiones |
+| Ventas por categoría y proveedor | `Monto Neto` × Categorías / Proveedor |
+
+`olap/consultas_validacion.mdx` tiene las consultas MDX que comprueban
+estos valores contra los del DW.
 
 ## Dashboard Power BI - Fase 2
 _Pendiente._
@@ -143,7 +192,7 @@ docs/presentacion/         presentaciones
 database/scripts/          01 crear modelo, 02 limpiar, 03 validar
 database/backup/           KentFoodsDW.bak
 etl/proyecto-ssis/         proyecto SSIS
-olap/proyecto-ssas/        Fase 2
+olap/                      cubo (XMLA, consultas MDX y proyecto SSAS)
 powerbi/                   Fase 2
 ```
 
@@ -158,7 +207,16 @@ Para correr el ETL desde cero:
    Las conexiones apuntan a `localhost` con autenticación de Windows.
 4. Ejecutar `database/scripts/03_validar_carga.sql`.
 
+Para el cubo (Fase 2):
+1. Ejecutar `database/scripts/04_preparar_cubo.sql` en el motor SQL.
+2. En SSMS conectarse a Analysis Services (`localhost`), abrir
+   `olap/crear_cubo_kentfoods.xmla` y ejecutarlo (F5): crea y procesa
+   `KentFoodsOLAP`.
+3. Correr `olap/consultas_validacion.mdx` y comparar con los valores
+   esperados de cada consulta.
+4. O abrir `olap/proyecto-ssas` en Visual Studio y hacer *Deploy*.
+
 ## Distribución de responsabilidades y aportes
 | Integrante | Aportes |
 |---|---|
-| Maximiliano Pozo | Análisis del caso y KPI, modelo dimensional, scripts SQL, ETL en SSIS, validación y documentación |
+| Maximiliano Pozo | Análisis del caso y KPI, modelo dimensional, scripts SQL, ETL en SSIS, validación, cubo SSAS, dashboard y documentación |
