@@ -1,0 +1,1344 @@
+<!--
+  Kent Foods - Cubo OLAP (SSAS multidimensional).
+  Abrir en SSMS conectado a Analysis Services (localhost), File > Open > este archivo, F5.
+  Crea (o reemplaza) la base KentFoodsOLAP y la procesa completa.
+  Antes correr database/scripts/04_preparar_cubo.sql en el motor SQL.
+  Archivo generado; el proyecto de Visual Studio se obtiene con
+  "Import from Server (Multidimensional)" (ver README).
+-->
+<Batch xmlns="http://schemas.microsoft.com/analysisservices/2003/engine" Transaction="false">
+  <Alter xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" AllowCreate="true" ObjectExpansion="ExpandFull">
+    <Object>
+      <DatabaseID>KentFoodsOLAP</DatabaseID>
+    </Object>
+    <ObjectDefinition>
+      <Database>
+        <ID>KentFoodsOLAP</ID>
+        <Name>KentFoodsOLAP</Name>
+        <Language>3082</Language>
+        <Collation>Modern_Spanish_CI_AS</Collation>
+        <DataSourceImpersonationInfo>
+          <ImpersonationMode>Default</ImpersonationMode>
+        </DataSourceImpersonationInfo>
+        <Dimensions>
+          <Dimension>
+            <ID>Dim Tiempo</ID>
+            <Name>Tiempo</Name>
+            <Source xsi:type="DataSourceViewBinding">
+              <DataSourceViewID>KentFoods DW</DataSourceViewID>
+            </Source>
+            <UnknownMember>Visible</UnknownMember>
+            <UnknownMemberName>Sin fecha</UnknownMemberName>
+            <Attributes>
+              <Attribute>
+                <ID>Fecha</ID>
+                <Name>Fecha</Name>
+                <Usage>Key</Usage>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>Integer</DataType>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Tiempo</TableID>
+                      <ColumnID>FechaKey</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <NameColumn>
+                  <DataType>WChar</DataType>
+                  <DataSize>10</DataSize>
+                  <Source xsi:type="ColumnBinding">
+                    <TableID>dbo_Dim_Tiempo</TableID>
+                    <ColumnID>FechaTexto</ColumnID>
+                  </Source>
+                </NameColumn>
+                <AttributeRelationships>
+                  <AttributeRelationship>
+                    <AttributeID>Mes</AttributeID>
+                    <Name>Mes</Name>
+                  </AttributeRelationship>
+                  <AttributeRelationship>
+                    <AttributeID>Mes del Anio</AttributeID>
+                    <Name>Mes del Anio</Name>
+                  </AttributeRelationship>
+                </AttributeRelationships>
+                <OrderBy>Key</OrderBy>
+              </Attribute>
+              <Attribute>
+                <ID>Mes</ID>
+                <Name>Mes</Name>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>Integer</DataType>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Tiempo</TableID>
+                      <ColumnID>AnioMes</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <NameColumn>
+                  <DataType>WChar</DataType>
+                  <DataSize>20</DataSize>
+                  <Source xsi:type="ColumnBinding">
+                    <TableID>dbo_Dim_Tiempo</TableID>
+                    <ColumnID>NombreMesAnio</ColumnID>
+                  </Source>
+                </NameColumn>
+                <AttributeRelationships>
+                  <AttributeRelationship>
+                    <AttributeID>Trimestre</AttributeID>
+                    <Name>Trimestre</Name>
+                  </AttributeRelationship>
+                </AttributeRelationships>
+                <OrderBy>Key</OrderBy>
+              </Attribute>
+              <Attribute>
+                <ID>Trimestre</ID>
+                <Name>Trimestre</Name>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>Integer</DataType>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Tiempo</TableID>
+                      <ColumnID>AnioTrimestre</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <NameColumn>
+                  <DataType>WChar</DataType>
+                  <DataSize>7</DataSize>
+                  <Source xsi:type="ColumnBinding">
+                    <TableID>dbo_Dim_Tiempo</TableID>
+                    <ColumnID>NombreTrimestre</ColumnID>
+                  </Source>
+                </NameColumn>
+                <AttributeRelationships>
+                  <AttributeRelationship>
+                    <AttributeID>Anio</AttributeID>
+                    <Name>Anio</Name>
+                  </AttributeRelationship>
+                </AttributeRelationships>
+                <OrderBy>Key</OrderBy>
+              </Attribute>
+              <Attribute>
+                <ID>Anio</ID>
+                <Name>Año</Name>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>Integer</DataType>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Tiempo</TableID>
+                      <ColumnID>Anio</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <NameColumn>
+                  <DataType>WChar</DataType>
+                  <Source xsi:type="ColumnBinding">
+                    <TableID>dbo_Dim_Tiempo</TableID>
+                    <ColumnID>Anio</ColumnID>
+                  </Source>
+                </NameColumn>
+                <OrderBy>Key</OrderBy>
+              </Attribute>
+              <Attribute>
+                <ID>Mes del Anio</ID>
+                <Name>Mes del año</Name>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>Integer</DataType>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Tiempo</TableID>
+                      <ColumnID>Mes</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <NameColumn>
+                  <DataType>WChar</DataType>
+                  <DataSize>15</DataSize>
+                  <Source xsi:type="ColumnBinding">
+                    <TableID>dbo_Dim_Tiempo</TableID>
+                    <ColumnID>NombreMes</ColumnID>
+                  </Source>
+                </NameColumn>
+                <OrderBy>Key</OrderBy>
+              </Attribute>
+            </Attributes>
+            <Hierarchies>
+              <Hierarchy>
+                <ID>Calendario</ID>
+                <Name>Calendario</Name>
+                <Levels>
+                  <Level>
+                    <ID>Anio</ID>
+                    <Name>Año</Name>
+                    <SourceAttributeID>Anio</SourceAttributeID>
+                  </Level>
+                  <Level>
+                    <ID>Trimestre</ID>
+                    <Name>Trimestre</Name>
+                    <SourceAttributeID>Trimestre</SourceAttributeID>
+                  </Level>
+                  <Level>
+                    <ID>Mes</ID>
+                    <Name>Mes</Name>
+                    <SourceAttributeID>Mes</SourceAttributeID>
+                  </Level>
+                  <Level>
+                    <ID>Fecha</ID>
+                    <Name>Día</Name>
+                    <SourceAttributeID>Fecha</SourceAttributeID>
+                  </Level>
+                </Levels>
+              </Hierarchy>
+            </Hierarchies>
+          </Dimension>
+          <Dimension>
+            <ID>Dim Cliente</ID>
+            <Name>Cliente</Name>
+            <Source xsi:type="DataSourceViewBinding">
+              <DataSourceViewID>KentFoods DW</DataSourceViewID>
+            </Source>
+            <Attributes>
+              <Attribute>
+                <ID>Cliente</ID>
+                <Name>Cliente</Name>
+                <Usage>Key</Usage>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>Integer</DataType>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Cliente</TableID>
+                      <ColumnID>ClienteKey</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <NameColumn>
+                  <DataType>WChar</DataType>
+                  <DataSize>40</DataSize>
+                  <Source xsi:type="ColumnBinding">
+                    <TableID>dbo_Dim_Cliente</TableID>
+                    <ColumnID>Empresa</ColumnID>
+                  </Source>
+                </NameColumn>
+                <AttributeRelationships>
+                  <AttributeRelationship>
+                    <AttributeID>Pais</AttributeID>
+                    <Name>Pais</Name>
+                  </AttributeRelationship>
+                  <AttributeRelationship>
+                    <AttributeID>Ciudad</AttributeID>
+                    <Name>Ciudad</Name>
+                  </AttributeRelationship>
+                </AttributeRelationships>
+                <OrderBy>Name</OrderBy>
+              </Attribute>
+              <Attribute>
+                <ID>Pais</ID>
+                <Name>País</Name>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>WChar</DataType>
+                    <DataSize>15</DataSize>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Cliente</TableID>
+                      <ColumnID>Pais</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <OrderBy>Name</OrderBy>
+              </Attribute>
+              <Attribute>
+                <ID>Ciudad</ID>
+                <Name>Ciudad</Name>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>WChar</DataType>
+                    <DataSize>15</DataSize>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Cliente</TableID>
+                      <ColumnID>Ciudad</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <OrderBy>Name</OrderBy>
+              </Attribute>
+            </Attributes>
+            <Hierarchies>
+              <Hierarchy>
+                <ID>Geografia</ID>
+                <Name>Geografía</Name>
+                <Levels>
+                  <Level>
+                    <ID>Pais</ID>
+                    <Name>País</Name>
+                    <SourceAttributeID>Pais</SourceAttributeID>
+                  </Level>
+                  <Level>
+                    <ID>Cliente</ID>
+                    <Name>Cliente</Name>
+                    <SourceAttributeID>Cliente</SourceAttributeID>
+                  </Level>
+                </Levels>
+              </Hierarchy>
+            </Hierarchies>
+          </Dimension>
+          <Dimension>
+            <ID>Dim Producto</ID>
+            <Name>Producto</Name>
+            <Source xsi:type="DataSourceViewBinding">
+              <DataSourceViewID>KentFoods DW</DataSourceViewID>
+            </Source>
+            <Attributes>
+              <Attribute>
+                <ID>Producto</ID>
+                <Name>Producto</Name>
+                <Usage>Key</Usage>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>Integer</DataType>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Producto</TableID>
+                      <ColumnID>ProductoKey</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <NameColumn>
+                  <DataType>WChar</DataType>
+                  <DataSize>40</DataSize>
+                  <Source xsi:type="ColumnBinding">
+                    <TableID>dbo_Dim_Producto</TableID>
+                    <ColumnID>Producto</ColumnID>
+                  </Source>
+                </NameColumn>
+                <AttributeRelationships>
+                  <AttributeRelationship>
+                    <AttributeID>Categoria</AttributeID>
+                    <Name>Categoria</Name>
+                  </AttributeRelationship>
+                  <AttributeRelationship>
+                    <AttributeID>Proveedor</AttributeID>
+                    <Name>Proveedor</Name>
+                  </AttributeRelationship>
+                </AttributeRelationships>
+                <OrderBy>Name</OrderBy>
+              </Attribute>
+              <Attribute>
+                <ID>Categoria</ID>
+                <Name>Categoría</Name>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>WChar</DataType>
+                    <DataSize>15</DataSize>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Producto</TableID>
+                      <ColumnID>Categoria</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <OrderBy>Name</OrderBy>
+              </Attribute>
+              <Attribute>
+                <ID>Proveedor</ID>
+                <Name>Proveedor</Name>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>WChar</DataType>
+                    <DataSize>40</DataSize>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Producto</TableID>
+                      <ColumnID>Proveedor</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <AttributeRelationships>
+                  <AttributeRelationship>
+                    <AttributeID>Pais Proveedor</AttributeID>
+                    <Name>Pais Proveedor</Name>
+                  </AttributeRelationship>
+                </AttributeRelationships>
+                <OrderBy>Name</OrderBy>
+              </Attribute>
+              <Attribute>
+                <ID>Pais Proveedor</ID>
+                <Name>País proveedor</Name>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>WChar</DataType>
+                    <DataSize>15</DataSize>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Producto</TableID>
+                      <ColumnID>PaisProveedor</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <OrderBy>Name</OrderBy>
+              </Attribute>
+            </Attributes>
+            <Hierarchies>
+              <Hierarchy>
+                <ID>Categorias</ID>
+                <Name>Categorías</Name>
+                <Levels>
+                  <Level>
+                    <ID>Categoria</ID>
+                    <Name>Categoría</Name>
+                    <SourceAttributeID>Categoria</SourceAttributeID>
+                  </Level>
+                  <Level>
+                    <ID>Producto</ID>
+                    <Name>Producto</Name>
+                    <SourceAttributeID>Producto</SourceAttributeID>
+                  </Level>
+                </Levels>
+              </Hierarchy>
+            </Hierarchies>
+          </Dimension>
+          <Dimension>
+            <ID>Dim Empleado</ID>
+            <Name>Empleado</Name>
+            <Source xsi:type="DataSourceViewBinding">
+              <DataSourceViewID>KentFoods DW</DataSourceViewID>
+            </Source>
+            <Attributes>
+              <Attribute>
+                <ID>Empleado</ID>
+                <Name>Empleado</Name>
+                <Usage>Key</Usage>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>Integer</DataType>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Empleado</TableID>
+                      <ColumnID>EmpleadoKey</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <NameColumn>
+                  <DataType>WChar</DataType>
+                  <DataSize>31</DataSize>
+                  <Source xsi:type="ColumnBinding">
+                    <TableID>dbo_Dim_Empleado</TableID>
+                    <ColumnID>NombreEmpleado</ColumnID>
+                  </Source>
+                </NameColumn>
+                <AttributeRelationships>
+                  <AttributeRelationship>
+                    <AttributeID>Region</AttributeID>
+                    <Name>Region</Name>
+                  </AttributeRelationship>
+                  <AttributeRelationship>
+                    <AttributeID>Cargo</AttributeID>
+                    <Name>Cargo</Name>
+                  </AttributeRelationship>
+                  <AttributeRelationship>
+                    <AttributeID>Pais</AttributeID>
+                    <Name>Pais</Name>
+                  </AttributeRelationship>
+                </AttributeRelationships>
+                <OrderBy>Name</OrderBy>
+              </Attribute>
+              <Attribute>
+                <ID>Region</ID>
+                <Name>Región</Name>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>WChar</DataType>
+                    <DataSize>50</DataSize>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Empleado</TableID>
+                      <ColumnID>Region</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <OrderBy>Name</OrderBy>
+              </Attribute>
+              <Attribute>
+                <ID>Cargo</ID>
+                <Name>Cargo</Name>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>WChar</DataType>
+                    <DataSize>30</DataSize>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Empleado</TableID>
+                      <ColumnID>Cargo</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <OrderBy>Name</OrderBy>
+              </Attribute>
+              <Attribute>
+                <ID>Pais</ID>
+                <Name>País</Name>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>WChar</DataType>
+                    <DataSize>15</DataSize>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Empleado</TableID>
+                      <ColumnID>Pais</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <OrderBy>Name</OrderBy>
+              </Attribute>
+            </Attributes>
+            <Hierarchies>
+              <Hierarchy>
+                <ID>Regiones</ID>
+                <Name>Regiones</Name>
+                <Levels>
+                  <Level>
+                    <ID>Region</ID>
+                    <Name>Región</Name>
+                    <SourceAttributeID>Region</SourceAttributeID>
+                  </Level>
+                  <Level>
+                    <ID>Empleado</ID>
+                    <Name>Empleado</Name>
+                    <SourceAttributeID>Empleado</SourceAttributeID>
+                  </Level>
+                </Levels>
+              </Hierarchy>
+            </Hierarchies>
+          </Dimension>
+          <Dimension>
+            <ID>Dim Transportista</ID>
+            <Name>Transportista</Name>
+            <Source xsi:type="DataSourceViewBinding">
+              <DataSourceViewID>KentFoods DW</DataSourceViewID>
+            </Source>
+            <Attributes>
+              <Attribute>
+                <ID>Transportista</ID>
+                <Name>Transportista</Name>
+                <Usage>Key</Usage>
+                <KeyColumns>
+                  <KeyColumn>
+                    <DataType>Integer</DataType>
+                    <Source xsi:type="ColumnBinding">
+                      <TableID>dbo_Dim_Transportista</TableID>
+                      <ColumnID>TransportistaKey</ColumnID>
+                    </Source>
+                  </KeyColumn>
+                </KeyColumns>
+                <NameColumn>
+                  <DataType>WChar</DataType>
+                  <DataSize>40</DataSize>
+                  <Source xsi:type="ColumnBinding">
+                    <TableID>dbo_Dim_Transportista</TableID>
+                    <ColumnID>Transportista</ColumnID>
+                  </Source>
+                </NameColumn>
+                <OrderBy>Name</OrderBy>
+              </Attribute>
+            </Attributes>
+          </Dimension>
+        </Dimensions>
+        <Cubes>
+          <Cube>
+            <ID>KentFoods</ID>
+            <Name>KentFoods</Name>
+            <Dimensions>
+              <Dimension>
+                <ID>Fecha Orden</ID>
+                <Name>Fecha Orden</Name>
+                <DimensionID>Dim Tiempo</DimensionID>
+                <Attributes>
+                  <Attribute>
+                    <AttributeID>Fecha</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Mes</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Trimestre</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Anio</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Mes del Anio</AttributeID>
+                  </Attribute>
+                </Attributes>
+                <Hierarchies>
+                  <Hierarchy>
+                    <HierarchyID>Calendario</HierarchyID>
+                  </Hierarchy>
+                </Hierarchies>
+              </Dimension>
+              <Dimension>
+                <ID>Fecha Envio</ID>
+                <Name>Fecha Envío</Name>
+                <DimensionID>Dim Tiempo</DimensionID>
+                <Attributes>
+                  <Attribute>
+                    <AttributeID>Fecha</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Mes</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Trimestre</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Anio</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Mes del Anio</AttributeID>
+                  </Attribute>
+                </Attributes>
+                <Hierarchies>
+                  <Hierarchy>
+                    <HierarchyID>Calendario</HierarchyID>
+                  </Hierarchy>
+                </Hierarchies>
+              </Dimension>
+              <Dimension>
+                <ID>Cliente</ID>
+                <Name>Cliente</Name>
+                <DimensionID>Dim Cliente</DimensionID>
+                <Attributes>
+                  <Attribute>
+                    <AttributeID>Cliente</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Pais</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Ciudad</AttributeID>
+                  </Attribute>
+                </Attributes>
+                <Hierarchies>
+                  <Hierarchy>
+                    <HierarchyID>Geografia</HierarchyID>
+                  </Hierarchy>
+                </Hierarchies>
+              </Dimension>
+              <Dimension>
+                <ID>Producto</ID>
+                <Name>Producto</Name>
+                <DimensionID>Dim Producto</DimensionID>
+                <Attributes>
+                  <Attribute>
+                    <AttributeID>Producto</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Categoria</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Proveedor</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Pais Proveedor</AttributeID>
+                  </Attribute>
+                </Attributes>
+                <Hierarchies>
+                  <Hierarchy>
+                    <HierarchyID>Categorias</HierarchyID>
+                  </Hierarchy>
+                </Hierarchies>
+              </Dimension>
+              <Dimension>
+                <ID>Empleado</ID>
+                <Name>Empleado</Name>
+                <DimensionID>Dim Empleado</DimensionID>
+                <Attributes>
+                  <Attribute>
+                    <AttributeID>Empleado</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Region</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Cargo</AttributeID>
+                  </Attribute>
+                  <Attribute>
+                    <AttributeID>Pais</AttributeID>
+                  </Attribute>
+                </Attributes>
+                <Hierarchies>
+                  <Hierarchy>
+                    <HierarchyID>Regiones</HierarchyID>
+                  </Hierarchy>
+                </Hierarchies>
+              </Dimension>
+              <Dimension>
+                <ID>Transportista</ID>
+                <Name>Transportista</Name>
+                <DimensionID>Dim Transportista</DimensionID>
+                <Attributes>
+                  <Attribute>
+                    <AttributeID>Transportista</AttributeID>
+                  </Attribute>
+                </Attributes>
+              </Dimension>
+            </Dimensions>
+            <MeasureGroups>
+              <MeasureGroup>
+                <ID>Ventas</ID>
+                <Name>Ventas</Name>
+                <Measures>
+                  <Measure>
+                    <ID>Monto Neto</ID>
+                    <Name>Monto Neto</Name>
+                    <AggregateFunction>Sum</AggregateFunction>
+                    <DataType>Double</DataType>
+                    <Source>
+                      <DataType>Double</DataType>
+                      <Source xsi:type="ColumnBinding">
+                        <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                        <ColumnID>MontoNeto</ColumnID>
+                      </Source>
+                    </Source>
+                    <FormatString>#,##0.00</FormatString>
+                  </Measure>
+                  <Measure>
+                    <ID>Monto Bruto</ID>
+                    <Name>Monto Bruto</Name>
+                    <AggregateFunction>Sum</AggregateFunction>
+                    <DataType>Double</DataType>
+                    <Source>
+                      <DataType>Double</DataType>
+                      <Source xsi:type="ColumnBinding">
+                        <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                        <ColumnID>MontoBruto</ColumnID>
+                      </Source>
+                    </Source>
+                    <FormatString>#,##0.00</FormatString>
+                  </Measure>
+                  <Measure>
+                    <ID>Monto Descuento</ID>
+                    <Name>Monto Descuento</Name>
+                    <AggregateFunction>Sum</AggregateFunction>
+                    <DataType>Double</DataType>
+                    <Source>
+                      <DataType>Double</DataType>
+                      <Source xsi:type="ColumnBinding">
+                        <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                        <ColumnID>MontoDescuento</ColumnID>
+                      </Source>
+                    </Source>
+                    <FormatString>#,##0.00</FormatString>
+                  </Measure>
+                  <Measure>
+                    <ID>Cantidad</ID>
+                    <Name>Cantidad</Name>
+                    <AggregateFunction>Sum</AggregateFunction>
+                    <DataType>Integer</DataType>
+                    <Source>
+                      <DataType>Integer</DataType>
+                      <Source xsi:type="ColumnBinding">
+                        <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                        <ColumnID>Cantidad</ColumnID>
+                      </Source>
+                    </Source>
+                    <FormatString>#,##0</FormatString>
+                  </Measure>
+                  <Measure>
+                    <ID>Lineas Venta</ID>
+                    <Name>Lineas Venta</Name>
+                    <AggregateFunction>Count</AggregateFunction>
+                    <DataType>Integer</DataType>
+                    <Source>
+                      <DataType>Integer</DataType>
+                      <Source xsi:type="RowBinding">
+                        <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                      </Source>
+                    </Source>
+                    <FormatString>#,##0</FormatString>
+                  </Measure>
+                  <Measure>
+                    <ID>Dias Despacho Ponderado</ID>
+                    <Name>Dias Despacho Ponderado</Name>
+                    <AggregateFunction>Sum</AggregateFunction>
+                    <DataType>Double</DataType>
+                    <Source>
+                      <DataType>Double</DataType>
+                      <Source xsi:type="ColumnBinding">
+                        <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                        <ColumnID>DiasDespachoPonderado</ColumnID>
+                      </Source>
+                    </Source>
+                    <Visible>false</Visible>
+                    <FormatString>#,##0.00</FormatString>
+                  </Measure>
+                  <Measure>
+                    <ID>Ordenes Despachadas</ID>
+                    <Name>Ordenes Despachadas</Name>
+                    <AggregateFunction>Sum</AggregateFunction>
+                    <DataType>Double</DataType>
+                    <Source>
+                      <DataType>Double</DataType>
+                      <Source xsi:type="ColumnBinding">
+                        <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                        <ColumnID>PesoOrdenDespachada</ColumnID>
+                      </Source>
+                    </Source>
+                    <FormatString>#,##0</FormatString>
+                  </Measure>
+                </Measures>
+                <StorageMode>Molap</StorageMode>
+                <ProcessingMode>Regular</ProcessingMode>
+                <Dimensions>
+                  <Dimension xsi:type="RegularMeasureGroupDimension">
+                    <CubeDimensionID>Fecha Orden</CubeDimensionID>
+                    <Attributes>
+                      <Attribute>
+                        <AttributeID>Fecha</AttributeID>
+                        <KeyColumns>
+                          <KeyColumn>
+                            <DataType>Integer</DataType>
+                            <Source xsi:type="ColumnBinding">
+                              <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                              <ColumnID>FechaOrdenKey</ColumnID>
+                            </Source>
+                          </KeyColumn>
+                        </KeyColumns>
+                        <Type>Granularity</Type>
+                      </Attribute>
+                    </Attributes>
+                  </Dimension>
+                  <Dimension xsi:type="RegularMeasureGroupDimension">
+                    <CubeDimensionID>Fecha Envio</CubeDimensionID>
+                    <Attributes>
+                      <Attribute>
+                        <AttributeID>Fecha</AttributeID>
+                        <KeyColumns>
+                          <KeyColumn>
+                            <DataType>Integer</DataType>
+                            <NullProcessing>UnknownMember</NullProcessing>
+                            <Source xsi:type="ColumnBinding">
+                              <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                              <ColumnID>FechaEnvioKey</ColumnID>
+                            </Source>
+                          </KeyColumn>
+                        </KeyColumns>
+                        <Type>Granularity</Type>
+                      </Attribute>
+                    </Attributes>
+                  </Dimension>
+                  <Dimension xsi:type="RegularMeasureGroupDimension">
+                    <CubeDimensionID>Cliente</CubeDimensionID>
+                    <Attributes>
+                      <Attribute>
+                        <AttributeID>Cliente</AttributeID>
+                        <KeyColumns>
+                          <KeyColumn>
+                            <DataType>Integer</DataType>
+                            <Source xsi:type="ColumnBinding">
+                              <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                              <ColumnID>ClienteKey</ColumnID>
+                            </Source>
+                          </KeyColumn>
+                        </KeyColumns>
+                        <Type>Granularity</Type>
+                      </Attribute>
+                    </Attributes>
+                  </Dimension>
+                  <Dimension xsi:type="RegularMeasureGroupDimension">
+                    <CubeDimensionID>Producto</CubeDimensionID>
+                    <Attributes>
+                      <Attribute>
+                        <AttributeID>Producto</AttributeID>
+                        <KeyColumns>
+                          <KeyColumn>
+                            <DataType>Integer</DataType>
+                            <Source xsi:type="ColumnBinding">
+                              <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                              <ColumnID>ProductoKey</ColumnID>
+                            </Source>
+                          </KeyColumn>
+                        </KeyColumns>
+                        <Type>Granularity</Type>
+                      </Attribute>
+                    </Attributes>
+                  </Dimension>
+                  <Dimension xsi:type="RegularMeasureGroupDimension">
+                    <CubeDimensionID>Empleado</CubeDimensionID>
+                    <Attributes>
+                      <Attribute>
+                        <AttributeID>Empleado</AttributeID>
+                        <KeyColumns>
+                          <KeyColumn>
+                            <DataType>Integer</DataType>
+                            <Source xsi:type="ColumnBinding">
+                              <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                              <ColumnID>EmpleadoKey</ColumnID>
+                            </Source>
+                          </KeyColumn>
+                        </KeyColumns>
+                        <Type>Granularity</Type>
+                      </Attribute>
+                    </Attributes>
+                  </Dimension>
+                  <Dimension xsi:type="RegularMeasureGroupDimension">
+                    <CubeDimensionID>Transportista</CubeDimensionID>
+                    <Attributes>
+                      <Attribute>
+                        <AttributeID>Transportista</AttributeID>
+                        <KeyColumns>
+                          <KeyColumn>
+                            <DataType>Integer</DataType>
+                            <Source xsi:type="ColumnBinding">
+                              <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                              <ColumnID>TransportistaKey</ColumnID>
+                            </Source>
+                          </KeyColumn>
+                        </KeyColumns>
+                        <Type>Granularity</Type>
+                      </Attribute>
+                    </Attributes>
+                  </Dimension>
+                </Dimensions>
+                <Partitions>
+                  <Partition>
+                    <ID>Ventas</ID>
+                    <Name>Ventas</Name>
+                    <Source xsi:type="DsvTableBinding">
+                      <DataSourceViewID>KentFoods DW</DataSourceViewID>
+                      <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                    </Source>
+                    <StorageMode>Molap</StorageMode>
+                    <ProcessingMode>Regular</ProcessingMode>
+                  </Partition>
+                </Partitions>
+              </MeasureGroup>
+              <MeasureGroup>
+                <ID>Ordenes</ID>
+                <Name>Ordenes</Name>
+                <Measures>
+                  <Measure>
+                    <ID>Ordenes</ID>
+                    <Name>Ordenes</Name>
+                    <AggregateFunction>DistinctCount</AggregateFunction>
+                    <DataType>Integer</DataType>
+                    <Source>
+                      <DataType>Integer</DataType>
+                      <Source xsi:type="ColumnBinding">
+                        <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                        <ColumnID>OrdenID</ColumnID>
+                      </Source>
+                    </Source>
+                    <FormatString>#,##0</FormatString>
+                  </Measure>
+                </Measures>
+                <StorageMode>Molap</StorageMode>
+                <ProcessingMode>Regular</ProcessingMode>
+                <Dimensions>
+                  <Dimension xsi:type="RegularMeasureGroupDimension">
+                    <CubeDimensionID>Fecha Orden</CubeDimensionID>
+                    <Attributes>
+                      <Attribute>
+                        <AttributeID>Fecha</AttributeID>
+                        <KeyColumns>
+                          <KeyColumn>
+                            <DataType>Integer</DataType>
+                            <Source xsi:type="ColumnBinding">
+                              <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                              <ColumnID>FechaOrdenKey</ColumnID>
+                            </Source>
+                          </KeyColumn>
+                        </KeyColumns>
+                        <Type>Granularity</Type>
+                      </Attribute>
+                    </Attributes>
+                  </Dimension>
+                  <Dimension xsi:type="RegularMeasureGroupDimension">
+                    <CubeDimensionID>Fecha Envio</CubeDimensionID>
+                    <Attributes>
+                      <Attribute>
+                        <AttributeID>Fecha</AttributeID>
+                        <KeyColumns>
+                          <KeyColumn>
+                            <DataType>Integer</DataType>
+                            <NullProcessing>UnknownMember</NullProcessing>
+                            <Source xsi:type="ColumnBinding">
+                              <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                              <ColumnID>FechaEnvioKey</ColumnID>
+                            </Source>
+                          </KeyColumn>
+                        </KeyColumns>
+                        <Type>Granularity</Type>
+                      </Attribute>
+                    </Attributes>
+                  </Dimension>
+                  <Dimension xsi:type="RegularMeasureGroupDimension">
+                    <CubeDimensionID>Cliente</CubeDimensionID>
+                    <Attributes>
+                      <Attribute>
+                        <AttributeID>Cliente</AttributeID>
+                        <KeyColumns>
+                          <KeyColumn>
+                            <DataType>Integer</DataType>
+                            <Source xsi:type="ColumnBinding">
+                              <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                              <ColumnID>ClienteKey</ColumnID>
+                            </Source>
+                          </KeyColumn>
+                        </KeyColumns>
+                        <Type>Granularity</Type>
+                      </Attribute>
+                    </Attributes>
+                  </Dimension>
+                  <Dimension xsi:type="RegularMeasureGroupDimension">
+                    <CubeDimensionID>Producto</CubeDimensionID>
+                    <Attributes>
+                      <Attribute>
+                        <AttributeID>Producto</AttributeID>
+                        <KeyColumns>
+                          <KeyColumn>
+                            <DataType>Integer</DataType>
+                            <Source xsi:type="ColumnBinding">
+                              <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                              <ColumnID>ProductoKey</ColumnID>
+                            </Source>
+                          </KeyColumn>
+                        </KeyColumns>
+                        <Type>Granularity</Type>
+                      </Attribute>
+                    </Attributes>
+                  </Dimension>
+                  <Dimension xsi:type="RegularMeasureGroupDimension">
+                    <CubeDimensionID>Empleado</CubeDimensionID>
+                    <Attributes>
+                      <Attribute>
+                        <AttributeID>Empleado</AttributeID>
+                        <KeyColumns>
+                          <KeyColumn>
+                            <DataType>Integer</DataType>
+                            <Source xsi:type="ColumnBinding">
+                              <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                              <ColumnID>EmpleadoKey</ColumnID>
+                            </Source>
+                          </KeyColumn>
+                        </KeyColumns>
+                        <Type>Granularity</Type>
+                      </Attribute>
+                    </Attributes>
+                  </Dimension>
+                  <Dimension xsi:type="RegularMeasureGroupDimension">
+                    <CubeDimensionID>Transportista</CubeDimensionID>
+                    <Attributes>
+                      <Attribute>
+                        <AttributeID>Transportista</AttributeID>
+                        <KeyColumns>
+                          <KeyColumn>
+                            <DataType>Integer</DataType>
+                            <Source xsi:type="ColumnBinding">
+                              <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                              <ColumnID>TransportistaKey</ColumnID>
+                            </Source>
+                          </KeyColumn>
+                        </KeyColumns>
+                        <Type>Granularity</Type>
+                      </Attribute>
+                    </Attributes>
+                  </Dimension>
+                </Dimensions>
+                <Partitions>
+                  <Partition>
+                    <ID>Ordenes</ID>
+                    <Name>Ordenes</Name>
+                    <Source xsi:type="DsvTableBinding">
+                      <DataSourceViewID>KentFoods DW</DataSourceViewID>
+                      <TableID>dbo_vw_Fact_Venta_Cubo</TableID>
+                    </Source>
+                    <StorageMode>Molap</StorageMode>
+                    <ProcessingMode>Regular</ProcessingMode>
+                  </Partition>
+                </Partitions>
+              </MeasureGroup>
+            </MeasureGroups>
+            <Source>
+              <DataSourceViewID>KentFoods DW</DataSourceViewID>
+            </Source>
+            <MdxScripts>
+              <MdxScript>
+                <ID>MdxScript</ID>
+                <Name>MdxScript</Name>
+                <Commands>
+                  <Command>
+                    <Text>CALCULATE;
+// Ticket promedio = ventas netas / ordenes (KPI 2)
+CREATE MEMBER CURRENTCUBE.[Measures].[Ticket Promedio] AS
+    IIF([Measures].[Ordenes] = 0, NULL, [Measures].[Monto Neto] / [Measures].[Ordenes]),
+    FORMAT_STRING = "#,##0.00", VISIBLE = 1, ASSOCIATED_MEASURE_GROUP = 'Ventas';
+// % de descuento = descuento / monto bruto (KPI 4)
+CREATE MEMBER CURRENTCUBE.[Measures].[% Descuento] AS
+    IIF([Measures].[Monto Bruto] = 0, NULL, [Measures].[Monto Descuento] / [Measures].[Monto Bruto]),
+    FORMAT_STRING = "0.0%", VISIBLE = 1, ASSOCIATED_MEASURE_GROUP = 'Ventas';
+// Dias promedio de despacho por orden (KPI 3); ver vw_Fact_Venta_Cubo
+CREATE MEMBER CURRENTCUBE.[Measures].[Dias Promedio Despacho] AS
+    IIF([Measures].[Ordenes Despachadas] = 0, NULL,
+        [Measures].[Dias Despacho Ponderado] / [Measures].[Ordenes Despachadas]),
+    FORMAT_STRING = "0.0", VISIBLE = 1, ASSOCIATED_MEASURE_GROUP = 'Ventas';
+</Text>
+                  </Command>
+                </Commands>
+              </MdxScript>
+            </MdxScripts>
+          </Cube>
+        </Cubes>
+        <DataSources>
+          <DataSource xsi:type="RelationalDataSource">
+            <ID>KentFoods DW</ID>
+            <Name>KentFoods DW</Name>
+            <ConnectionString>Provider=SQLNCLI11.1;Data Source=localhost;Integrated Security=SSPI;Initial Catalog=KentFoodsDW</ConnectionString>
+            <ImpersonationInfo>
+              <ImpersonationMode>ImpersonateServiceAccount</ImpersonationMode>
+            </ImpersonationInfo>
+            <Timeout>PT0S</Timeout>
+          </DataSource>
+        </DataSources>
+        <DataSourceViews>
+          <DataSourceView>
+            <ID>KentFoods DW</ID>
+            <Name>KentFoods DW</Name>
+            <DataSourceID>KentFoods DW</DataSourceID>
+            <Schema>
+              <xs:schema xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" id="KentFoods_x0020_DW">
+                <xs:element name="KentFoods_x0020_DW" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+                  <xs:complexType>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                      <xs:element name="dbo_Dim_Cliente" msprop:DbTableName="Dim_Cliente" msprop:FriendlyName="Dim_Cliente" msprop:DbSchemaName="dbo" msprop:TableType="Table">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="ClienteKey" type="xs:int"/>
+                            <xs:element name="ClienteID">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="5"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Empresa">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="40"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Ciudad" minOccurs="0">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="15"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Pais" minOccurs="0">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="15"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="dbo_Dim_Producto" msprop:DbTableName="Dim_Producto" msprop:FriendlyName="Dim_Producto" msprop:DbSchemaName="dbo" msprop:TableType="Table">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="ProductoKey" type="xs:int"/>
+                            <xs:element name="ProductoID" type="xs:int"/>
+                            <xs:element name="Producto">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="40"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Categoria">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="15"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Proveedor">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="40"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="PaisProveedor" minOccurs="0">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="15"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="dbo_Dim_Empleado" msprop:DbTableName="Dim_Empleado" msprop:FriendlyName="Dim_Empleado" msprop:DbSchemaName="dbo" msprop:TableType="Table">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="EmpleadoKey" type="xs:int"/>
+                            <xs:element name="EmpleadoID" type="xs:int"/>
+                            <xs:element name="NombreEmpleado">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="31"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Cargo" minOccurs="0">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="30"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Pais" minOccurs="0">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="15"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Region">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="50"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="dbo_Dim_Transportista" msprop:DbTableName="Dim_Transportista" msprop:FriendlyName="Dim_Transportista" msprop:DbSchemaName="dbo" msprop:TableType="Table">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="TransportistaKey" type="xs:int"/>
+                            <xs:element name="TransportistaID" type="xs:int"/>
+                            <xs:element name="Transportista">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="40"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="dbo_Dim_Tiempo" msprop:DbTableName="Dim_Tiempo" msprop:FriendlyName="Dim_Tiempo" msprop:DbSchemaName="dbo" msprop:TableType="Table">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="FechaKey" type="xs:int"/>
+                            <xs:element name="Fecha" type="xs:dateTime"/>
+                            <xs:element name="Dia" type="xs:int"/>
+                            <xs:element name="NombreDiaSemana">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="10"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Mes" type="xs:int"/>
+                            <xs:element name="NombreMes">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="15"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="AnioMes" type="xs:int"/>
+                            <xs:element name="Trimestre" type="xs:int"/>
+                            <xs:element name="AnioTrimestre" type="xs:int"/>
+                            <xs:element name="Anio" type="xs:int"/>
+                            <xs:element name="NombreTrimestre" minOccurs="0">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="7"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="NombreMesAnio" minOccurs="0">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="20"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="FechaTexto" minOccurs="0">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="10"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="dbo_vw_Fact_Venta_Cubo" msprop:DbTableName="vw_Fact_Venta_Cubo" msprop:FriendlyName="vw_Fact_Venta_Cubo" msprop:DbSchemaName="dbo" msprop:TableType="View">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="OrdenID" type="xs:int"/>
+                            <xs:element name="ProductoKey" type="xs:int"/>
+                            <xs:element name="FechaOrdenKey" type="xs:int"/>
+                            <xs:element name="FechaEnvioKey" type="xs:int" minOccurs="0"/>
+                            <xs:element name="ClienteKey" type="xs:int"/>
+                            <xs:element name="EmpleadoKey" type="xs:int"/>
+                            <xs:element name="TransportistaKey" type="xs:int"/>
+                            <xs:element name="Cantidad" type="xs:int"/>
+                            <xs:element name="PrecioUnitario" type="xs:decimal"/>
+                            <xs:element name="Descuento" type="xs:decimal"/>
+                            <xs:element name="MontoBruto" type="xs:decimal"/>
+                            <xs:element name="MontoDescuento" type="xs:decimal"/>
+                            <xs:element name="MontoNeto" type="xs:decimal"/>
+                            <xs:element name="DiasDespacho" type="xs:int" minOccurs="0"/>
+                            <xs:element name="DiasDespachoPonderado" type="xs:double" minOccurs="0"/>
+                            <xs:element name="PesoOrdenDespachada" type="xs:double" minOccurs="0"/>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:choice>
+                  </xs:complexType>
+                  <xs:unique name="PK_Dim_Cliente" msdata:PrimaryKey="true">
+                    <xs:selector xpath=".//dbo_Dim_Cliente"/>
+                    <xs:field xpath="ClienteKey"/>
+                  </xs:unique>
+                  <xs:unique name="PK_Dim_Producto" msdata:PrimaryKey="true">
+                    <xs:selector xpath=".//dbo_Dim_Producto"/>
+                    <xs:field xpath="ProductoKey"/>
+                  </xs:unique>
+                  <xs:unique name="PK_Dim_Empleado" msdata:PrimaryKey="true">
+                    <xs:selector xpath=".//dbo_Dim_Empleado"/>
+                    <xs:field xpath="EmpleadoKey"/>
+                  </xs:unique>
+                  <xs:unique name="PK_Dim_Transportista" msdata:PrimaryKey="true">
+                    <xs:selector xpath=".//dbo_Dim_Transportista"/>
+                    <xs:field xpath="TransportistaKey"/>
+                  </xs:unique>
+                  <xs:unique name="PK_Dim_Tiempo" msdata:PrimaryKey="true">
+                    <xs:selector xpath=".//dbo_Dim_Tiempo"/>
+                    <xs:field xpath="FechaKey"/>
+                  </xs:unique>
+                </xs:element>
+                <xs:annotation>
+                  <xs:appinfo>
+                    <msdata:Relationship name="FK_Cliente" msdata:parent="dbo_Dim_Cliente" msdata:child="dbo_vw_Fact_Venta_Cubo" msdata:parentkey="ClienteKey" msdata:childkey="ClienteKey"/>
+                    <msdata:Relationship name="FK_Producto" msdata:parent="dbo_Dim_Producto" msdata:child="dbo_vw_Fact_Venta_Cubo" msdata:parentkey="ProductoKey" msdata:childkey="ProductoKey"/>
+                    <msdata:Relationship name="FK_Empleado" msdata:parent="dbo_Dim_Empleado" msdata:child="dbo_vw_Fact_Venta_Cubo" msdata:parentkey="EmpleadoKey" msdata:childkey="EmpleadoKey"/>
+                    <msdata:Relationship name="FK_Transportista" msdata:parent="dbo_Dim_Transportista" msdata:child="dbo_vw_Fact_Venta_Cubo" msdata:parentkey="TransportistaKey" msdata:childkey="TransportistaKey"/>
+                    <msdata:Relationship name="FK_FechaOrden" msdata:parent="dbo_Dim_Tiempo" msdata:child="dbo_vw_Fact_Venta_Cubo" msdata:parentkey="FechaKey" msdata:childkey="FechaOrdenKey"/>
+                    <msdata:Relationship name="FK_FechaEnvio" msdata:parent="dbo_Dim_Tiempo" msdata:child="dbo_vw_Fact_Venta_Cubo" msdata:parentkey="FechaKey" msdata:childkey="FechaEnvioKey"/>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:schema>
+              <KentFoods_x0020_DW xmlns=""/>
+            </Schema>
+          </DataSourceView>
+        </DataSourceViews>
+      </Database>
+    </ObjectDefinition>
+  </Alter>
+  <Process>
+    <Object>
+      <DatabaseID>KentFoodsOLAP</DatabaseID>
+    </Object>
+    <Type>ProcessFull</Type>
+  </Process>
+</Batch>
