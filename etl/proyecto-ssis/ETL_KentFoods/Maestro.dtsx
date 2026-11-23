@@ -86,13 +86,13 @@
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
-      DTS:refId="Package\EXEC Dim_Trasnportista"
+      DTS:refId="Package\EXEC Dim_Transportista"
       DTS:CreationName="Microsoft.ExecutePackageTask"
       DTS:Description="Tarea Ejecutar paquete"
       DTS:DTSID="{2B5DC319-BF01-4B80-A698-FA48A768D8C4}"
       DTS:ExecutableType="Microsoft.ExecutePackageTask"
       DTS:LocaleID="-1"
-      DTS:ObjectName="EXEC Dim_Trasnportista"
+      DTS:ObjectName="EXEC Dim_Transportista"
       DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:Variables />
       <DTS:ObjectData>
@@ -145,12 +145,12 @@
       DTS:From="Package\Limpiar SQL"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
-      DTS:To="Package\EXEC Dim_Trasnportista" />
+      DTS:To="Package\EXEC Dim_Transportista" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
       DTS:CreationName=""
       DTS:DTSID="{491FF99E-1ED2-43CC-8723-558F40DA0F9F}"
-      DTS:From="Package\EXEC Dim_Trasnportista"
+      DTS:From="Package\EXEC Dim_Transportista"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 1"
       DTS:To="Package\EXEC Dim_Cliente" />
@@ -205,7 +205,7 @@
           TopLeft="333,184" />
         <NodeLayout
           Size="202,42"
-          Id="Package\EXEC Dim_Trasnportista"
+          Id="Package\EXEC Dim_Transportista"
           TopLeft="594,197" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"

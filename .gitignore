@@ -5,7 +5,8 @@ obj/
 *.user
 *.suo
 *.dtsx.bak
-*.database
+# Ignorar .database generado por SSIS, pero permitirlo en proyectos SSAS (olap/)
+etl/**/*.database
 *.dtproj.user
 *.dwproj.user
 
