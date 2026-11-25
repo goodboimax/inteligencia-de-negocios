@@ -1,0 +1,94 @@
+﻿<Cube xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="2c015e6b-14db-43d6-9687-15258b24b27c" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Kent Foods Ventas</ID>
+  <MeasureGroups>
+    <MeasureGroup>
+      <ID>Ventas</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="d9d77efb-8f25-462f-a18f-928a3c08d204">
+          <ID>Ventas</ID>
+          <Name>Ventas</Name>
+          <CreatedTimestamp>2026-11-22T20:30:37.126667Z</CreatedTimestamp>
+          <LastSchemaUpdate>2026-11-22T20:30:37.126667Z</LastSchemaUpdate>
+          <LastProcessed>2026-11-22T20:30:37.7Z</LastProcessed>
+          <State>Processed</State>
+          <Source xsi:type="TableBinding" dwd:design-time-name="8b817b06-7abe-4505-b0b2-c2dd1e327d3e">
+            <DataSourceID>KentFoodsDW</DataSourceID>
+            <DbSchemaName>dbo</DbSchemaName>
+            <DbTableName>Fact_Detalle_Venta</DbTableName>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+          <ProactiveCaching dwd:design-time-name="917b6ab1-7c02-42ca-b6c6-cb7f2b73816f">
+            <SilenceInterval>-PT1S</SilenceInterval>
+            <Latency>-PT1S</Latency>
+            <SilenceOverrideInterval>-PT1S</SilenceOverrideInterval>
+            <ForceRebuildInterval>-PT1S</ForceRebuildInterval>
+            <Source xsi:type="ProactiveCachingInheritedBinding" dwd:design-time-name="a27be7b4-760e-498b-9092-84e97d9b0f90" />
+          </ProactiveCaching>
+          <EstimatedSize>30534</EstimatedSize>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Ordenes</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="e4bee8b1-8c34-4332-b022-4c1b47d58332">
+          <ID>Ordenes</ID>
+          <Name>Ordenes</Name>
+          <CreatedTimestamp>2026-11-22T20:30:37.133333Z</CreatedTimestamp>
+          <LastSchemaUpdate>2026-11-22T20:30:37.133333Z</LastSchemaUpdate>
+          <LastProcessed>2026-11-22T20:30:37.7Z</LastProcessed>
+          <State>Processed</State>
+          <Source xsi:type="TableBinding" dwd:design-time-name="ee1255ab-28f8-4e5e-85e1-baa59267a1e1">
+            <DataSourceID>KentFoodsDW</DataSourceID>
+            <DbSchemaName>dbo</DbSchemaName>
+            <DbTableName>Fact_Detalle_Venta</DbTableName>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+          <ProactiveCaching dwd:design-time-name="dd3318d3-533c-48ea-bcae-8caa3e729b38">
+            <SilenceInterval>-PT1S</SilenceInterval>
+            <Latency>-PT1S</Latency>
+            <SilenceOverrideInterval>-PT1S</SilenceOverrideInterval>
+            <ForceRebuildInterval>-PT1S</ForceRebuildInterval>
+            <Source xsi:type="ProactiveCachingInheritedBinding" dwd:design-time-name="4b2ab268-4cba-401d-81ec-ec12cf749074" />
+          </ProactiveCaching>
+          <EstimatedSize>15353</EstimatedSize>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Despachos</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="4c7a9b2a-fa58-45a9-9d04-5a6c2a5a9c2f">
+          <ID>Despachos</ID>
+          <Name>Despachos</Name>
+          <CreatedTimestamp>2026-11-22T20:30:37.14Z</CreatedTimestamp>
+          <LastSchemaUpdate>2026-11-22T20:30:37.14Z</LastSchemaUpdate>
+          <LastProcessed>2026-11-22T20:30:37.693333Z</LastProcessed>
+          <State>Processed</State>
+          <Source xsi:type="QueryBinding" dwd:design-time-name="51c408c4-b64e-4044-8106-84cc7ccbb588">
+            <DataSourceID>KentFoodsDW</DataSourceID>
+            <QueryDefinition>SELECT OrdenID, MIN(FechaOrdenKey) AS FechaOrdenKey, MIN(FechaEnvioKey) AS FechaEnvioKey,
+       MIN(ClienteKey) AS ClienteKey, MIN(EmpleadoKey) AS EmpleadoKey,
+       MIN(TransportistaKey) AS TransportistaKey, MIN(DiasDespacho) AS DiasDespacho
+FROM dbo.Fact_Detalle_Venta GROUP BY OrdenID</QueryDefinition>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+          <ProactiveCaching dwd:design-time-name="840af1f3-c2ee-45f3-85e9-41c165c5d361">
+            <SilenceInterval>-PT1S</SilenceInterval>
+            <Latency>-PT1S</Latency>
+            <SilenceOverrideInterval>-PT1S</SilenceOverrideInterval>
+            <ForceRebuildInterval>-PT1S</ForceRebuildInterval>
+            <Source xsi:type="ProactiveCachingInheritedBinding" dwd:design-time-name="13ac1784-e6b8-4f8e-b2d0-ef7f408a3d9d" />
+          </ProactiveCaching>
+          <EstimatedSize>4432</EstimatedSize>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+  </MeasureGroups>
+</Cube>

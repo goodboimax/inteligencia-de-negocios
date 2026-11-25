@@ -83,6 +83,12 @@ erDiagram
 - `Dim_Tiempo` usa `AAAAMMDD` como clave (ej. `20170115`) y se llena con
   `dbo.usp_CargarDimTiempo` de 2016 a 2018.
 - `OrdenID` es dimensión degenerada.
-- Jerarquías para el cubo: Año > Trimestre > Mes > Día (con `AnioMes` y
-  `AnioTrimestre` como claves de nivel), Categoría > Producto, Región >
-  Empleado.
+- Jerarquías implementadas en el cubo OLAP:
+  - Tiempo: `Anio > Trimestre > Mes > Dia` (con `AnioMes` y `AnioTrimestre`
+    como claves de nivel).
+  - Producto: `Categoria > Producto` y `Pais Proveedor > Proveedor > Producto`.
+  - Empleado: `Region > Empleado`.
+  - Cliente: `Pais > Ciudad > Empresa`.
+- `DiasDespacho` está a grano de orden (se repite por cada producto de la
+  misma orden en `Fact_Detalle_Venta`), por lo que en el cubo se agrega a
+  través de la vista lógica `Fact_Orden` para calcular el promedio por orden.
